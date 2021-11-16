@@ -3,7 +3,18 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    name: motif
+    version: 0.1.0.0
+    git: https://github.com/sullyj3/motif.git
+    pantry-tree:
+      size: 5696
+      sha256: b473a3e50b4fc3bfeb27d5480ca7963ded89050e66fd87aedbf99b17ae5cb20d
+    commit: b4606c37950eba5f6b53468e6cc4594742ef9354
+  original:
+    git: https://github.com/sullyj3/motif.git
+    commit: b4606c37950eba5f6b53468e6cc4594742ef9354
 snapshots:
 - completed:
     size: 586292

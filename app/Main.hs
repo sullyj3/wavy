@@ -12,6 +12,8 @@ import Control.Monad
 import qualified System.Console.Terminal.Size as Term
 import Data.Function (on)
 
+import Motif
+
 -- instance Num a => Num (r -> a) where
 --   f1 + f2 = \r -> f1 r + f2 r
 --   f1 * f2 = \r -> f1 r * f2 r
@@ -37,9 +39,6 @@ main = do
   for_ [0.01, 0.02 ..] \x -> do
     T.putStrLn $ nth width (quantize width fSum x) '.'
     sleep 0.01
-
-sleep :: Double -> IO ()
-sleep seconds = threadDelay $ round (seconds * 1_000_000)
 
 sinusoid a b h k x = a * sin (b * (x-h)) + k
 
