@@ -46,13 +46,13 @@ sinusoid a b h k x = a * sin (b * (x-h)) + k
 -- >>> sin (pi/2)
 -- 1.0
 
--- >>> quantize 10 sin (pi/2)
--- 9
+-- >>> quantize 1000 sin (pi/2)
+-- 999
 
 -- >>> sin (3*pi/2)
 -- -1.0
 
--- >>> quantize 10 sin (3*pi/2)
+-- >>> quantize 1000 sin (3*pi/2)
 -- 0
 
 -- take a function with range [-1,1], quantize it and scale it to [0,steps)
