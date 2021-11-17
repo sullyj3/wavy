@@ -12,23 +12,30 @@ import Control.Monad
 import qualified System.Console.Terminal.Size as Term
 import Data.Function (on)
 
+import System.Posix.Signals
+import System.Posix.Signals.Exts
+import Control.Concurrent.STM.TVar
+import Control.Monad.STM
+
 import Motif
 
--- instance Num a => Num (r -> a) where
---   f1 + f2 = \r -> f1 r + f2 r
---   f1 * f2 = \r -> f1 r * f2 r
---   abs f = abs . f
---   signum f = signum . f
---   fromInteger i = const (fromIntegral i)
---   negate f = negate . f
-
--- instance Fractional a => Fractional (r -> a) where
---   fromRational r = const $ fromRational r
---   f1 / f2 = \r -> f1 r / f2 r
+getWidth :: IO Int
+getWidth = do
+  Just Term.Window {Term.width=width} <- Term.size
+  pure width
 
 main :: IO ()
 main = do
-  Just Term.Window {Term.width=width} <- Term.size
+  initialWidth <- getWidth
+
+  widthVar <- newTVarIO initialWidth
+
+  let winCHHandler :: IO ()
+      winCHHandler = do
+        width <- getWidth
+        atomically $ writeTVar widthVar width
+
+  installHandler sigWINCH (Catch winCHHandler) Nothing
 
   let f1 = sinusoid 1 0.3 0 0
       f2 = sinusoid 0.1 3 2 0
@@ -37,6 +44,7 @@ main = do
       fSum x = f1 x + f2 x + f3 x + f4 x
 
   for_ [0.01, 0.02 ..] \x -> do
+    width <- readTVarIO widthVar
     T.putStrLn $ nth width (quantize width fSum x) '.'
     sleep 0.01
 
