@@ -26,15 +26,8 @@ getWidth = do
 
 main :: IO ()
 main = do
-  initialWidth <- getWidth
-
-  widthVar <- newTVarIO initialWidth
-
-  let winCHHandler :: IO ()
-      winCHHandler = do
-        width <- getWidth
-        atomically $ writeTVar widthVar width
-
+  widthVar <- newTVarIO =<< getWidth
+  let winCHHandler = atomically . writeTVar widthVar =<< getWidth
   installHandler sigWINCH (Catch winCHHandler) Nothing
 
   let f1 = sinusoid 1 0.3 0 0
@@ -42,13 +35,16 @@ main = do
       f3 = sinusoid 0.2 4 2.4 0
       f4 = sinusoid 0.4 7 2.4 0
       fSum x = f1 x + f2 x + f3 x + f4 x
-
       f = bipolarToUnipolar . tanh . fSum
 
   for_ [0.01, 0.02 ..] \x -> do
     width <- readTVarIO widthVar
     T.putStrLn $ nth width (quantize width . f $ x) '.'
     sleep 0.01
+
+-- |-----------------| --
+-- | Numerical stuff | --
+-- |-----------------| --
 
 sinusoid a b h k x = a * sin (b * (x-h)) + k
 
