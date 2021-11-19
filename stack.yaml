@@ -42,7 +42,7 @@ packages:
 #
 extra-deps:
 - git: https://github.com/sullyj3/motif.git
-  commit: b4606c37950eba5f6b53468e6cc4594742ef9354
+  commit: 68a9e490523eb85d209b052a6d61288f1ec8cbf8
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
