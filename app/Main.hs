@@ -33,7 +33,7 @@ main = do
   let winCHHandler = atomically . writeTVar widthVar =<< getWidth
   installHandler sigWINCH (Catch winCHHandler) Nothing
 
-  randFun <- chebfun 0.1 100
+  randFun <- chebfun 0.3 100
   let f = bipolarToUnipolar . tanh . (* 10) . randFun
       delta = 0.005
 
@@ -80,9 +80,8 @@ chebfun wavelength period
     pure $ const a0
   | otherwise = do
     -- these are nonempty, since m > 0
-    let mRandoms = NE.fromList <$> sampleRVar (replicateM m distribution)
-    as <- mRandoms
-    bs <- mRandoms
+    as <- NE.fromList <$> mRandoms
+    bs <- NE.fromList <$> mRandoms
     let a0 = NE.head as
         jsasbs = zip3 [1 ..] (NE.tail as) (NE.tail bs)
 
@@ -101,3 +100,6 @@ chebfun wavelength period
 
     distribution :: RVar Double
     distribution = normal mean variance
+
+    mRandoms :: MonadRandom m => m [Double]
+    mRandoms = sampleRVar $ replicateM m distribution
