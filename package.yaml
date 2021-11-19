@@ -27,6 +27,7 @@ dependencies:
 - stm
 - motif
 - random-fu
+- rvar
 
 library:
   source-dirs: src

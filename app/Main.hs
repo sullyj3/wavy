@@ -12,6 +12,7 @@ import Control.Monad.STM
 import Data.Foldable
 import Data.Function (on)
 import qualified Data.List.NonEmpty as NE
+import Data.RVar
 import Data.Random
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -71,13 +72,13 @@ chebfun wavelength period
     pure $ const a0
   | otherwise = do
     -- these are nonempty, since m > 0
-    let mRandoms = NE.fromList <$> runRVar (replicateM m distribution) StdRandom
+    let mRandoms = NE.fromList <$> sampleRVar (replicateM m distribution)
     as <- mRandoms
     bs <- mRandoms
     let a0 = NE.head as
         jsasbs = zip3 [1 ..] (NE.tail as) (NE.tail bs)
 
-    let f x = a0 + sqrt 2 * sum [term a b j | (j, a, b) <- jsasbs]
+        f x = a0 + sqrt 2 * sum [term a b j | (j, a, b) <- jsasbs]
           where
             term a b j = a * cos theta + b * sin theta
               where

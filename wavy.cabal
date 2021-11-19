@@ -34,6 +34,7 @@ library
       base >=4.7 && <5
     , motif
     , random-fu
+    , rvar
     , stm
     , terminal-size
     , text
@@ -51,6 +52,7 @@ executable wavy-exe
       base >=4.7 && <5
     , motif
     , random-fu
+    , rvar
     , stm
     , terminal-size
     , text
@@ -70,6 +72,7 @@ test-suite wavy-test
       base >=4.7 && <5
     , motif
     , random-fu
+    , rvar
     , stm
     , terminal-size
     , text
