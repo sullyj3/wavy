@@ -39,8 +39,16 @@ main = do
 
   for_ [0, delta ..] \x -> do
     width <- readTVarIO widthVar
-    T.putStrLn $ nth width (quantize width . f $ x) '.'
+    let c = case floatCompare 0.003 (f (x-delta)) (f x) of
+          LT -> '\\'
+          EQ -> '|'
+          GT -> '/'
+    T.putStrLn $ nth width (quantize width . f $ x) c
     sleep 0.01
+
+floatCompare epsilon a b
+  | abs (a - b) < epsilon = EQ
+  | otherwise = compare a b
 
 -- | -----------------| --
 --  | Numerical stuff | --
