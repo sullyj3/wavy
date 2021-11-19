@@ -1,27 +1,29 @@
-{-# language BlockArguments, ScopedTypeVariables,
- OverloadedStrings, NumericUnderscores #-}
+{-# LANGUAGE BlockArguments #-}
+{-# LANGUAGE NumericUnderscores #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 module Main where
 
+import Control.Concurrent
+import Control.Concurrent.STM.TVar
+import Control.Monad
+import Control.Monad.STM
 import Data.Foldable
+import Data.Function (on)
+import qualified Data.List.NonEmpty as NE
+import Data.Random
+import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
-import           Data.Text (Text)
-import Control.Concurrent
-import Control.Monad
+import Motif
 import qualified System.Console.Terminal.Size as Term
-import Data.Function (on)
-
 import System.Posix.Signals
 import System.Posix.Signals.Exts
-import Control.Concurrent.STM.TVar
-import Control.Monad.STM
-
-import Motif
 
 getWidth :: IO Int
 getWidth = do
-  Just Term.Window {Term.width=width} <- Term.size
+  Just Term.Window {Term.width = width} <- Term.size
   pure width
 
 main :: IO ()
@@ -30,34 +32,63 @@ main = do
   let winCHHandler = atomically . writeTVar widthVar =<< getWidth
   installHandler sigWINCH (Catch winCHHandler) Nothing
 
-  let f1 = sinusoid 1 0.3 0 0
-      f2 = sinusoid 0.1 3 2 0
-      f3 = sinusoid 0.2 4 2.4 0
-      f4 = sinusoid 0.4 7 2.4 0
-      fSum x = f1 x + f2 x + f3 x + f4 x
-      f = bipolarToUnipolar . tanh . fSum
+  randFun <- chebfun 0.1 100
+  let f = bipolarToUnipolar . tanh . (* 10) . randFun
+      delta = 0.005
 
-  for_ [0.01, 0.02 ..] \x -> do
+  for_ [0, delta ..] \x -> do
     width <- readTVarIO widthVar
     T.putStrLn $ nth width (quantize width . f $ x) '.'
     sleep 0.01
 
--- |-----------------| --
--- | Numerical stuff | --
--- |-----------------| --
-
-sinusoid a b h k x = a * sin (b * (x-h)) + k
+-- | -----------------| --
+--  | Numerical stuff | --
+--  |-----------------| --
+sinusoid a b h k x = a * sin (b * (x - h)) + k
 
 -- take a function with range [0,1], quantize it and scale it to [0,steps)
 quantize :: Int -> Double -> Int
-quantize steps x = round $ (fromIntegral (steps-1)) * x
+quantize steps x = round $ (fromIntegral (steps -1)) * x
 
 nth :: Int -> Int -> Char -> Text
 nth width n c
   | n >= width = T.replicate width " "
-  | otherwise  = T.replicate n " " <> T.singleton c <> T.replicate (width - n - 1) " "
+  | otherwise = T.replicate n " " <> T.singleton c <> T.replicate (width - n - 1) " "
 
 -- not sure if this is the right terminology - takes functions with range
 -- [-1,1] to [0,1]
 bipolarToUnipolar :: Double -> Double
 bipolarToUnipolar x = (x / 2) + 0.5
+
+-- periodic smooth random function
+-- "Smooth Random Functions, Random ODEs, and Gaussian Processes"
+-- - Silviu Filip, Aurya Javeed, Lloyd N. Trefethen
+-- https://epubs.siam.org/doi/pdf/10.1137/17M1161853
+chebfun :: MonadRandom m => Double -> Double -> m (Double -> Double)
+chebfun wavelength period
+  | m <= 0 = do
+    a0 <- runRVar distribution StdRandom
+    pure $ const a0
+  | otherwise = do
+    -- these are nonempty, since m > 0
+    let mRandoms = NE.fromList <$> runRVar (replicateM m distribution) StdRandom
+    as <- mRandoms
+    bs <- mRandoms
+    let a0 = NE.head as
+        jsasbs = zip3 [1 ..] (NE.tail as) (NE.tail bs)
+
+    let f x = a0 + sqrt 2 * sum [term a b j | (j, a, b) <- jsasbs]
+          where
+            term a b j = a * cos theta + b * sin theta
+              where
+                theta = (2 * pi * j * x) / period
+    pure f
+  where
+    m :: Int
+    m = floor (period / wavelength)
+    mean = 0
+    variance :: Double
+    variance = 1 / (2 * fromIntegral m + 1)
+
+    distribution :: RVar Double
+    distribution = normal mean variance

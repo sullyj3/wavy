@@ -33,6 +33,7 @@ library
   build-depends:
       base >=4.7 && <5
     , motif
+    , random-fu
     , stm
     , terminal-size
     , text
@@ -49,6 +50,7 @@ executable wavy-exe
   build-depends:
       base >=4.7 && <5
     , motif
+    , random-fu
     , stm
     , terminal-size
     , text
@@ -67,6 +69,7 @@ test-suite wavy-test
   build-depends:
       base >=4.7 && <5
     , motif
+    , random-fu
     , stm
     , terminal-size
     , text
