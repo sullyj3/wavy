@@ -43,26 +43,28 @@ main = do
           LT -> '\\'
           EQ -> '|'
           GT -> '/'
-    T.putStrLn $ nth width (quantize width . f $ x) c
+    T.putStrLn $ charAtNth width (quantize width . f $ x) c
     sleep 0.01
+  where
+    charAtNth :: Int -> Int -> Char -> Text
+    charAtNth width n c
+      | n >= width = T.replicate width " "
+      | otherwise = T.replicate n " " <> T.singleton c <> T.replicate (width - n - 1) " "
+
+-- | --------------- | --
+-- | Numerical stuff | --
+-- | --------------- | --
 
 floatCompare epsilon a b
   | abs (a - b) < epsilon = EQ
   | otherwise = compare a b
 
--- | -----------------| --
---  | Numerical stuff | --
---  |-----------------| --
 sinusoid a b h k x = a * sin (b * (x - h)) + k
 
 -- take a function with range [0,1], quantize it and scale it to [0,steps)
 quantize :: Int -> Double -> Int
 quantize steps x = round $ (fromIntegral (steps -1)) * x
 
-nth :: Int -> Int -> Char -> Text
-nth width n c
-  | n >= width = T.replicate width " "
-  | otherwise = T.replicate n " " <> T.singleton c <> T.replicate (width - n - 1) " "
 
 -- not sure if this is the right terminology - takes functions with range
 -- [-1,1] to [0,1]
