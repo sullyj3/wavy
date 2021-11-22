@@ -1,0 +1,491 @@
+	Sun Nov 21 15:56 2021 Time and Allocation Profiling Report  (Final)
+
+	   wavy-exe +RTS -N -p -RTS
+
+	total time  =        0.09 secs   (352 ticks @ 1000 us, 4 processors)
+	total alloc =  15,356,584 bytes  (excludes profiling overheads)
+
+COST CENTRE           MODULE                       SRC                                                %time %alloc
+
+sleep                 Motif                        src/Motif.hs:12:1-59                                35.5    3.2
+chebfun.f.term        Main                         app/Main.hs:(92,13)-(94,49)                         20.5    0.0
+MAIN                  MAIN                         <built-in>                                          18.8   11.7
+main.\                Main                         app/Main.hs:(40,28)-(47,14)                          9.4   13.6
+chebfun.f             Main                         app/Main.hs:(90,9)-(94,49)                           9.1    0.4
+main.charAtNth        Main                         app/Main.hs:(50,5)-(52,89)                           2.8   57.2
+main                  Main                         app/Main.hs:(31,1)-(52,89)                           1.4    0.6
+getRandomWord64From.\ Data.Random.Source.DevRandom src/Data/Random/Source/DevRandom.hs:(38,3)-(52,7)    0.0    1.4
+>>=.\                 Data.RVar                    src/Data/RVar.hs:198:42-62                           0.0    1.2
+
+
+                                                                                                                                                             individual      inherited
+COST CENTRE                                  MODULE                            SRC                                                       no.      entries  %time %alloc   %time %alloc
+
+MAIN                                         MAIN                              <built-in>                                                2004           0   18.8   11.7   100.0  100.0
+ CAF                                         GHC.Conc.Signal                   <entire-module>                                           2117           0    0.0    0.0     0.0    0.0
+ CAF                                         GHC.IO.Encoding                   <entire-module>                                           2099           0    0.0    0.0     0.0    0.0
+ CAF                                         GHC.IO.Encoding.Iconv             <entire-module>                                           2097           0    0.0    0.0     0.0    0.0
+ CAF                                         GHC.IO.Exception                  <entire-module>                                           2091           0    0.0    0.0     0.0    0.0
+ CAF                                         GHC.IO.FD                         <entire-module>                                           2090           0    0.0    0.0     0.0    0.0
+ CAF                                         GHC.IO.Handle.FD                  <entire-module>                                           2088           0    0.0    0.2     0.0    0.2
+ CAF                                         GHC.TopHandler                    <entire-module>                                           2062           0    0.0    0.0     0.0    0.0
+ CAF                                         GHC.Event.Thread                  <entire-module>                                           2039           0    0.0    0.0     0.0    0.0
+ CAF                                         GHC.Event.Poll                    <entire-module>                                           2021           0    0.0    0.0     0.0    0.0
+ CAF:$fApplicativeBox_$cpure                 Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:45:3-6                         3630           0    0.0    0.0     0.0    0.0
+  pure                                       Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:45:3-12                        4162           1    0.0    0.0     0.0    0.0
+ CAF:$fApplicativeId4                        Data.Vector.Fusion.Util           <no location info>                                        3627           0    0.0    0.0     0.0    0.0
+  pure                                       Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:31:3-11                        4093           1    0.0    0.0     0.0    0.0
+ CAF:$fApplicativePromptT2                   Control.Monad.Prompt              <no location info>                                        3695           0    0.0    0.0     0.0    0.0
+  return                                     Control.Monad.Prompt              Control/Monad/Prompt.hs:205:4-29                          4274           1    0.0    0.0     0.0    0.0
+ CAF:$fApplicativeRVarT2                     Data.RVar                         <no location info>                                        3714           0    0.0    0.0     0.0    0.0
+  fmap                                       Data.RVar                         src/Data/RVar.hs:194:5-16                                 4044           1    0.0    0.0     0.0    0.0
+ CAF:$fApplicativeRVarT3                     Data.RVar                         <no location info>                                        3715           0    0.0    0.0     0.0    0.0
+  <*>                                        Data.RVar                         src/Data/RVar.hs:205:5-14                                 4027           1    0.0    0.0     0.0    0.0
+ CAF:$fApplicativeRVarT7                     Data.RVar                         <no location info>                                        3713           0    0.0    0.0     0.0    0.0
+  pure                                       Data.RVar                         src/Data/RVar.hs:204:5-18                                 4387           1    0.0    0.0     0.0    0.0
+ CAF:$fDistributionNormalDouble1             Data.Random.Distribution.Normal   <no location info>                                        3916           0    0.0    0.0     0.0    0.0
+  rvarT                                      Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(224,5)-(227,26)   4066           0    0.0    0.0     0.0    0.0
+   >>=                                       Data.RVar                         src/Data/RVar.hs:198:5-63                                 4067           0    0.0    0.0     0.0    0.0
+    >>=                                      Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4068           0    0.0    0.0     0.0    0.0
+     unPromptT                               Control.Monad.Prompt              Control/Monad/Prompt.hs:199:35-43                         4069           1    0.0    0.0     0.0    0.0
+ CAF:$fDistributionNormalDouble_$crvar       Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:223:10-35          3919           0    0.0    0.0     0.0    0.0
+  rvar                                       Data.Random.Distribution          src/Data/Random/Distribution.hs:55:5-16                   4053           1    0.0    0.0     0.0    0.0
+ CAF:$fDistributionUniformDouble1            Data.Random.Distribution.Uniform  <no location info>                                        3812           0    0.0    0.0     0.0    0.0
+  rvarT                                      Data.Random.Distribution.Uniform  src/Data/Random/Distribution/Uniform.hs:329:51-89         4331           0    0.0    0.0     0.0    0.0
+   >>=                                       Data.RVar                         src/Data/RVar.hs:198:5-63                                 4332           0    0.0    0.0     0.0    0.0
+    >>=                                      Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4333           0    0.0    0.0     0.0    0.0
+     unPromptT                               Control.Monad.Prompt              Control/Monad/Prompt.hs:199:35-43                         4334           1    0.0    0.0     0.0    0.0
+ CAF:$fMonadBox_$creturn                     Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:49:3-8                         3631           0    0.0    0.0     0.0    0.0
+  return                                     Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:49:3-15                        4161           1    0.0    0.0     0.0    0.0
+ CAF:$fMonadId1                              Data.Vector.Fusion.Util           <no location info>                                        3629           0    0.0    0.0     0.0    0.0
+  return                                     Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:35:3-15                        4092           1    0.0    0.0     0.0    0.0
+ CAF:$fMonadPromptpPromptT1                  Control.Monad.Prompt              <no location info>                                        3700           0    0.0    0.0     0.0    0.0
+  prompt                                     Control.Monad.Prompt              Control/Monad/Prompt.hs:216:4-38                          4248           1    0.0    0.0     0.0    0.0
+ CAF:$fMonadRandomIO_$cgetRandomPrim         Data.Random.Source.IO             src/Data/Random/Source/IO.hs:15:5-17                      3685           0    0.0    0.0     0.0    0.0
+  getRandomPrim                              Data.Random.Source.IO             src/Data/Random/Source/IO.hs:15:5-48                      4260           1    0.0    0.0     0.0    0.0
+ CAF:$fMonadRandomRVarT2                     Data.RVar                         <no location info>                                        3711           0    0.0    0.0     0.0    0.0
+  getRandomPrim                              Data.RVar                         src/Data/RVar.hs:201:5-34                                 4246           1    0.0    0.0     0.0    0.0
+ CAF:$fMonadRandomRVarT3                     Data.RVar                         <no location info>                                        3716           0    0.0    0.0     0.0    0.0
+  getRandomDouble                            Data.Random.Internal.Source       src/Data/Random/Internal/Source.hs:71:5-46                4335           1    0.0    0.0     0.0    0.0
+   getRandomPrim                             Data.RVar                         src/Data/RVar.hs:201:5-34                                 4336           0    0.0    0.0     0.0    0.0
+    prompt                                   Control.Monad.Prompt              Control/Monad/Prompt.hs:104:5-47                          4337           1    0.0    0.0     0.0    0.0
+ CAF:$fMonadRandomRVarT4                     Data.RVar                         <no location info>                                        3717           0    0.0    0.0     0.0    0.0
+  getRandomWord64                            Data.Random.Internal.Source       src/Data/Random/Internal/Source.hs:67:5-46                4245           1    0.0    0.0     0.0    0.0
+   getRandomPrim                             Data.RVar                         src/Data/RVar.hs:201:5-34                                 4247           0    0.0    0.0     0.0    0.0
+    prompt                                   Control.Monad.Prompt              Control/Monad/Prompt.hs:104:5-47                          4249           1    0.0    0.0     0.0    0.0
+ CAF:$fPrimMonadST1_r3mt                     Control.Monad.Primitive           <no location info>                                        2847           0    0.0    0.0     0.0    0.0
+  primitive                                  Control.Monad.Primitive           Control/Monad/Primitive.hs:206:3-16                       4126           1    0.0    0.0     0.0    0.0
+ CAF:$s$wreplicateM1                         Main                              <no location info>                                        4000           0    0.0    0.0     0.0    0.0
+  return                                     Data.RVar                         src/Data/RVar.hs:197:5-34                                 4388           1    0.0    0.0     0.0    0.0
+   return                                    Control.Monad.Prompt              Control/Monad/Prompt.hs:93:5-43                           4389           1    0.0    0.0     0.0    0.0
+ CAF:chebfun2                                Main                              <no location info>                                        3994           0    0.0    0.0     0.0    0.2
+  chebfun                                    Main                              app/Main.hs:(79,1)-(107,53)                               4414           0    0.0    0.0     0.0    0.2
+   chebfun.jsasbs                            Main                              app/Main.hs:88:9-54                                       4415           0    0.0    0.2     0.0    0.2
+ CAF:chebfun_mean                            Main                              app/Main.hs:99:5-8                                        3995           0    0.0    0.0     0.0    0.0
+  chebfun                                    Main                              app/Main.hs:(79,1)-(107,53)                               4303           0    0.0    0.0     0.0    0.0
+   chebfun.mean                              Main                              app/Main.hs:99:5-12                                       4304           1    0.0    0.0     0.0    0.0
+ CAF:delta_rebB                              Main                              app/Main.hs:38:7-11                                       3992           0    0.0    0.0     0.0    0.0
+  main                                       Main                              app/Main.hs:(31,1)-(52,89)                                4405           0    0.0    0.0     0.0    0.0
+   main.delta                                Main                              app/Main.hs:38:7-19                                       4406           1    0.0    0.0     0.0    0.0
+ CAF:devURandom                              Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:32:1-10               3679           0    0.0    0.0     0.0    0.1
+  devURandom                                 Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:32:1-69               4266           1    0.0    0.1     0.0    0.1
+ CAF:doBoundsChecks                          Data.Vector.Internal.Check        Data/Vector/Internal/Check.hs:55:1-14                     3632           0    0.0    0.0     0.0    0.0
+  doBoundsChecks                             Data.Vector.Internal.Check        Data/Vector/Internal/Check.hs:55:1-21                     4207           1    0.0    0.0     0.0    0.0
+ CAF:doInternalChecks                        Data.Vector.Internal.Check        Data/Vector/Internal/Check.hs:71:1-16                     3634           0    0.0    0.0     0.0    0.0
+  doInternalChecks                           Data.Vector.Internal.Check        Data/Vector/Internal/Check.hs:71:1-24                     4121           1    0.0    0.0     0.0    0.0
+ CAF:doUnsafeChecks                          Data.Vector.Internal.Check        Data/Vector/Internal/Check.hs:64:1-14                     3633           0    0.0    0.0     0.0    0.0
+  doUnsafeChecks                             Data.Vector.Internal.Check        Data/Vector/Internal/Check.hs:64:1-22                     4079           1    0.0    0.0     0.0    0.0
+ CAF:doubleStdNormal                         Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:151:1-15           3915           0    0.0    0.0     0.0    0.0
+  doubleStdNormal                            Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:151:1-46           4070           1    0.0    0.0     0.0    0.0
+   >>=                                       Data.RVar                         src/Data/RVar.hs:198:5-63                                 4222           1    0.0    0.0     0.0    0.0
+    >>=                                      Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4223           1    0.0    0.0     0.0    0.0
+     >>=                                     Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4224           1    0.0    0.0     0.0    0.0
+     unPromptT                               Control.Monad.Prompt              Control/Monad/Prompt.hs:199:35-43                         4232           1    0.0    0.0     0.0    0.0
+     doubleStdNormalZ                        Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(162,1)-(172,70)   4233           0    0.0    0.0     0.0    0.0
+      doubleStdNormalZ.getIU                 Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(169,9)-(172,70)   4234           0    0.0    0.0     0.0    0.0
+ CAF:doubleStdNormalC_r11B0                  Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:155:1-16           3891           0    0.0    0.0     0.0    0.0
+  doubleStdNormalC                           Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:155:1-22           4096           1    0.0    0.0     0.0    0.0
+ CAF:doubleStdNormalR_r11B1                  Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:157:1-16           3892           0    0.0    0.0     0.0    0.0
+  doubleStdNormalR                           Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:157:1-36           4133           1    0.0    0.0     0.0    0.0
+ CAF:doubleStdNormalV_r11B2                  Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:158:1-16           3893           0    0.0    0.0     0.0    0.0
+  doubleStdNormalV                           Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:158:1-40           4131           1    0.0    0.0     0.0    0.0
+ CAF:doubleStdNormalZ_r11B3                  Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:162:1-16           3914           0    0.0    0.0     0.3    3.6
+  doubleStdNormalZ                           Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(162,1)-(172,70)   4071           1    0.0    0.4     0.3    3.6
+   >>=                                       Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:36:3-18                        4156        1540    0.0    0.3     0.0    0.7
+    fmap                                     Data.Vector.Fusion.Stream.Monadic Data/Vector/Fusion/Stream/Monadic.hs:(134,3)-(136,20)     4157         514    0.0    0.2     0.0    0.3
+     basicUnsafeWrite                        Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:1510-1571                 4163         513    0.0    0.0     0.0    0.1
+      basicUnsafeWrite                       Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:131:3-69                 4164         513    0.0    0.1     0.0    0.1
+       primitive                             Control.Monad.Primitive           Control/Monad/Primitive.hs:206:3-16                       4167           0    0.0    0.0     0.0    0.0
+        writeByteArray#                      Data.Primitive.Types              Data/Primitive/Types.hs:286:460-529                       4168         513    0.0    0.0     0.0    0.0
+    normalF                                  Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(105,1)-(107,36)   4169         513    0.0    0.1     0.0    0.1
+   basicUnsafeSlice                          Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:1022-1096                 4165         514    0.0    0.0     0.0    0.1
+    basicUnsafeSlice                         Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:(101,3)-(102,25)         4166         514    0.0    0.1     0.0    0.1
+   unId                                      Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:25:21-24                       4155         514    0.0    0.0     0.0    0.0
+   basicUnsafeIndexM                         Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:310:841-899                   4158         513    0.0    0.0     0.0    0.1
+    basicUnsafeIndexM                        Data.Vector.Primitive             Data/Vector/Primitive.hs:245:3-75                         4159         513    0.0    0.1     0.0    0.1
+     indexByteArray#                         Data.Primitive.Types              Data/Primitive/Types.hs:286:229-297                       4160         513    0.0    0.0     0.0    0.0
+   sSize                                     Data.Vector.Fusion.Bundle.Monadic Data/Vector/Fusion/Bundle/Monadic.hs:125:30-34            4145           2    0.0    0.0     0.0    0.0
+   basicLength                               Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:310:679-721                   4072           1    0.0    0.0     0.0    0.0
+    basicLength                              Data.Vector.Primitive             Data/Vector/Primitive.hs:239:3-32                         4073           1    0.0    0.0     0.0    0.0
+   basicUnsafeFreeze                         Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:310:511-584                   4173           1    0.0    0.0     0.0    0.0
+    basicUnsafeFreeze                        Data.Vector.Primitive             Data/Vector/Primitive.hs:(231,3)-(232,51)                 4174           1    0.0    0.0     0.0    0.0
+     primitive                               Control.Monad.Primitive           Control/Monad/Primitive.hs:206:3-16                       4175           1    0.0    0.0     0.0    0.0
+   basicUnsafeNew                            Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:1194-1249                 4146           1    0.0    0.0     0.0    0.0
+    basicUnsafeNew                           Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:(112,3)-(118,37)         4147           1    0.0    0.0     0.0    0.0
+     basicUnsafeNew.mx                       Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:118:7-37                 4148           1    0.0    0.0     0.0    0.0
+     basicUnsafeNew.size                     Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:117:7-36                 4149           1    0.0    0.0     0.0    0.0
+      sizeOf                                 Data.Primitive.Types              Data/Primitive/Types.hs:120:1-25                          4150           1    0.0    0.0     0.0    0.0
+       sizeOf#                               Data.Primitive.Types              Data/Primitive/Types.hs:286:73-103                        4151           1    0.0    0.0     0.0    0.0
+        unI#                                 Data.Primitive.Types              Data/Primitive/Types.hs:251:1-17                          4152           1    0.0    0.0     0.0    0.0
+     primitive                               Control.Monad.Primitive           Control/Monad/Primitive.hs:206:3-16                       4153           1    0.0    0.0     0.0    0.0
+   doubleStdNormalZ.getIU                    Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(169,9)-(172,70)   4218           1    0.0    0.0     0.0    0.0
+    >>=                                      Data.RVar                         src/Data/RVar.hs:198:5-63                                 4219           1    0.0    0.0     0.0    0.0
+     >>=                                     Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4220           1    0.0    0.0     0.0    0.0
+      >>=                                    Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4221           1    0.0    0.0     0.0    0.0
+   precomputeRatios                          Data.Random.Distribution.Ziggurat src/Data/Random/Distribution/Ziggurat.hs:(309,1)-(311,32) 4176           1    0.0    0.9     0.3    2.2
+    >>=                                      Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:36:3-18                        4198        1025    0.0    0.2     0.0    0.6
+     fmap                                    Data.Vector.Fusion.Stream.Monadic Data/Vector/Fusion/Stream/Monadic.hs:(134,3)-(136,20)     4199         513    0.0    0.2     0.0    0.3
+      basicUnsafeWrite                       Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:1510-1571                 4200         512    0.0    0.0     0.0    0.1
+       basicUnsafeWrite                      Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:131:3-69                 4201         512    0.0    0.1     0.0    0.1
+        primitive                            Control.Monad.Primitive           Control/Monad/Primitive.hs:206:3-16                       4204           0    0.0    0.0     0.0    0.0
+         writeByteArray#                     Data.Primitive.Types              Data/Primitive/Types.hs:286:460-529                       4205         512    0.0    0.0     0.0    0.0
+    basicUnsafeSlice                         Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:1022-1096                 4202         513    0.0    0.0     0.0    0.1
+     basicUnsafeSlice                        Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:(101,3)-(102,25)         4203         513    0.0    0.1     0.0    0.1
+    unId                                     Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:25:21-24                       4197         513    0.0    0.0     0.0    0.0
+    precomputeRatios.\                       Data.Random.Distribution.Ziggurat src/Data/Random/Distribution/Ziggurat.hs:309:53-81        4206         512    0.3    0.5     0.3    0.6
+     unId                                    Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:25:21-24                       4208        2048    0.0    0.0     0.0    0.0
+     basicUnsafeIndexM                       Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:310:841-899                   4211        1024    0.0    0.0     0.0    0.1
+      basicUnsafeIndexM                      Data.Vector.Primitive             Data/Vector/Primitive.hs:245:3-75                         4212        1024    0.0    0.1     0.0    0.1
+       indexByteArray#                       Data.Primitive.Types              Data/Primitive/Types.hs:286:229-297                       4213        1024    0.0    0.0     0.0    0.0
+     basicLength                             Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:310:679-721                   4209           1    0.0    0.0     0.0    0.0
+      basicLength                            Data.Vector.Primitive             Data/Vector/Primitive.hs:239:3-32                         4210           1    0.0    0.0     0.0    0.0
+    basicUnsafeFreeze                        Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:310:511-584                   4215           1    0.0    0.0     0.0    0.0
+     basicUnsafeFreeze                       Data.Vector.Primitive             Data/Vector/Primitive.hs:(231,3)-(232,51)                 4216           1    0.0    0.0     0.0    0.0
+      primitive                              Control.Monad.Primitive           Control/Monad/Primitive.hs:206:3-16                       4217           0    0.0    0.0     0.0    0.0
+    basicUnsafeNew                           Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:1194-1249                 4183           1    0.0    0.0     0.0    0.0
+     basicUnsafeNew                          Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:(112,3)-(118,37)         4184           1    0.0    0.0     0.0    0.0
+      basicUnsafeNew.mx                      Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:118:7-37                 4185           1    0.0    0.0     0.0    0.0
+      primitive                              Control.Monad.Primitive           Control/Monad/Primitive.hs:206:3-16                       4195           0    0.0    0.0     0.0    0.0
+    precomputeRatios.c                       Data.Random.Distribution.Ziggurat src/Data/Random/Distribution/Ziggurat.hs:311:9-32         4177           1    0.0    0.0     0.0    0.0
+     basicLength                             Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:310:679-721                   4179           1    0.0    0.0     0.0    0.0
+      basicLength                            Data.Vector.Primitive             Data/Vector/Primitive.hs:239:3-32                         4180           1    0.0    0.0     0.0    0.0
+     unId                                    Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:25:21-24                       4178           1    0.0    0.0     0.0    0.0
+    sChunks                                  Data.Vector.Fusion.Bundle.Monadic Data/Vector/Fusion/Bundle/Monadic.hs:123:30-36            4196           1    0.0    0.0     0.0    0.0
+    sSize                                    Data.Vector.Fusion.Bundle.Monadic Data/Vector/Fusion/Bundle/Monadic.hs:125:30-34            4182           1    0.0    0.0     0.0    0.0
+    upperBound                               Data.Vector.Fusion.Bundle.Size    Data/Vector/Fusion/Bundle/Size.hs:(126,1)-(128,30)        4181           1    0.0    0.0     0.0    0.0
+   sChunks                                   Data.Vector.Fusion.Bundle.Monadic Data/Vector/Fusion/Bundle/Monadic.hs:123:30-36            4154           1    0.0    0.0     0.0    0.0
+   sElems                                    Data.Vector.Fusion.Bundle.Monadic Data/Vector/Fusion/Bundle/Monadic.hs:122:30-35            4143           1    0.0    0.0     0.0    0.0
+   upperBound                                Data.Vector.Fusion.Bundle.Size    Data/Vector/Fusion/Bundle/Size.hs:(126,1)-(128,30)        4144           1    0.0    0.0     0.0    0.0
+ CAF:getWidth1                               Main                              <no location info>                                        3998           0    0.0    0.0     0.0    0.0
+  getWidth                                   Main                              app/Main.hs:(26,1)-(28,12)                                4010           1    0.0    0.0     0.0    0.0
+ CAF:lvl1_rebx                               Main                              <no location info>                                        3991           0    0.0    0.0     0.0    0.0
+  main                                       Main                              app/Main.hs:(31,1)-(52,89)                                4421           0    0.0    0.0     0.0    0.0
+   main.\                                    Main                              app/Main.hs:(40,28)-(47,14)                               4422           0    0.0    0.0     0.0    0.0
+    main.charAtNth                           Main                              app/Main.hs:(50,5)-(52,89)                                4423           0    0.0    0.0     0.0    0.0
+ CAF:lvl41_r9Jj9                             Data.Vector.Unboxed.Base          <no location info>                                        3340           0    0.0    0.0     0.0    0.0
+  basicUnsafeNew                             Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:1194-1249                 4186           0    0.0    0.0     0.0    0.0
+   basicUnsafeNew                            Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:(112,3)-(118,37)         4187           0    0.0    0.0     0.0    0.0
+    basicUnsafeNew.mx                        Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:118:7-37                 4188           0    0.0    0.0     0.0    0.0
+ CAF:lvl4_rFO7                               Data.Random.Source.DevRandom      <no location info>                                        3678           0    0.0    0.0     0.0    0.0
+ CAF:lvl5_rebC                               Main                              <no location info>                                        3993           0    0.0    0.0     0.6    0.6
+  main                                       Main                              app/Main.hs:(31,1)-(52,89)                                4404           0    0.6    0.6     0.6    0.6
+ CAF:lvl72_r1aql                             Data.Random.Distribution.Normal   <no location info>                                        3913           0    0.0    0.0     0.0    0.0
+  doubleStdNormalZ                           Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(162,1)-(172,70)   4170           0    0.0    0.0     0.0    0.0
+   >>=                                       Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:36:3-18                        4171           1    0.0    0.0     0.0    0.0
+ CAF:main1                                   Main                              <no location info>                                        4006           0    0.0    0.0     0.0    0.0
+  main                                       Main                              app/Main.hs:(31,1)-(52,89)                                4008           1    0.0    0.0     0.0    0.0
+ CAF:poly_f4_r1aqb                           Data.Random.Distribution.Normal   <no location info>                                        3908           0    0.0    0.0     0.0    0.0
+  doubleStdNormalZ                           Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(162,1)-(172,70)   4240           0    0.0    0.0     0.0    0.0
+   doubleStdNormalZ.getIU                    Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(169,9)-(172,70)   4241           0    0.0    0.0     0.0    0.0
+    >>=                                      Data.RVar                         src/Data/RVar.hs:198:5-63                                 4242           0    0.0    0.0     0.0    0.0
+     >>=                                     Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4243           0    0.0    0.0     0.0    0.0
+      unPromptT                              Control.Monad.Prompt              Control/Monad/Prompt.hs:199:35-43                         4244           1    0.0    0.0     0.0    0.0
+ CAF:sIZEOF_DOUBLE                           Data.Primitive.MachDeps           Data/Primitive/MachDeps.hs:77:1-13                        2820           0    0.0    0.0     0.0    0.0
+  sIZEOF_DOUBLE                              Data.Primitive.MachDeps           Data/Primitive/MachDeps.hs:77:1-17                        4087           1    0.0    0.0     0.0    0.0
+ CAF:size35_r9Jj8                            Data.Vector.Unboxed.Base          <no location info>                                        3339           0    0.0    0.0     0.0    0.0
+  basicUnsafeNew                             Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:1194-1249                 4189           0    0.0    0.0     0.0    0.0
+   basicUnsafeNew                            Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:(112,3)-(118,37)         4190           0    0.0    0.0     0.0    0.0
+    basicUnsafeNew.size                      Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:117:7-36                 4191           1    0.0    0.0     0.0    0.0
+     sizeOf                                  Data.Primitive.Types              Data/Primitive/Types.hs:120:1-25                          4192           1    0.0    0.0     0.0    0.0
+      sizeOf#                                Data.Primitive.Types              Data/Primitive/Types.hs:286:73-103                        4193           1    0.0    0.0     0.0    0.0
+       unI#                                  Data.Primitive.Types              Data/Primitive/Types.hs:251:1-17                          4194           1    0.0    0.0     0.0    0.0
+ CAF:xs1_r1aq8                               Data.Random.Distribution.Normal   <no location info>                                        3907           0    0.0    0.0     2.0    2.2
+  doubleStdNormalZ                           Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(162,1)-(172,70)   4074           0    0.0    0.0     2.0    2.2
+   zigguratTable                             Data.Random.Distribution.Ziggurat src/Data/Random/Distribution/Ziggurat.hs:(284,1)-(285,32) 4075           1    0.3    0.4     2.0    2.2
+    >>=                                      Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:36:3-18                        4091         514    0.0    0.1     0.0    0.4
+     fmap                                    Data.Vector.Fusion.Stream.Monadic Data/Vector/Fusion/Stream/Monadic.hs:(134,3)-(136,20)     4094         514    0.0    0.2     0.0    0.3
+      basicUnsafeWrite                       Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:1510-1571                 4122         513    0.0    0.0     0.0    0.1
+       basicUnsafeWrite                      Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:131:3-69                 4123         513    0.0    0.1     0.0    0.1
+        primitive                            Control.Monad.Primitive           Control/Monad/Primitive.hs:206:3-16                       4127           0    0.0    0.0     0.0    0.0
+         writeByteArray#                     Data.Primitive.Types              Data/Primitive/Types.hs:286:460-529                       4128         513    0.0    0.0     0.0    0.0
+    basicUnsafeSlice                         Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:1022-1096                 4124         514    0.0    0.0     0.0    0.1
+     basicUnsafeSlice                        Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:(101,3)-(102,25)         4125         514    0.0    0.1     0.0    0.1
+    unId                                     Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:25:21-24                       4090         514    0.0    0.0     0.0    0.0
+    basicLength                              Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:943-986                   4097         513    0.0    0.0     0.0    0.0
+     basicLength                             Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:100:3-33                 4098         513    0.0    0.0     0.0    0.0
+    basicUnsafeGrow                          Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:1919-1993                 4102          11    0.0    0.0     0.0    0.1
+     basicUnsafeGrow                         Data.Vector.Generic.Mutable.Base  Data/Vector/Generic/Mutable/Base.hs:(142,3)-(148,23)      4103          11    0.0    0.0     0.0    0.1
+      basicUnsafeCopy                        Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:(134,3)-(137,34)         4114          11    0.0    0.0     0.0    0.0
+       primitive                             Control.Monad.Primitive           Control/Monad/Primitive.hs:206:3-16                       4115          11    0.0    0.0     0.0    0.0
+        unI#                                 Data.Primitive.ByteArray          Data/Primitive/ByteArray.hs:363:1-17                      4116          33    0.0    0.0     0.0    0.0
+        basicUnsafeCopy.sz                   Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:137:7-34                 4117          11    0.0    0.0     0.0    0.0
+         sizeOf                              Data.Primitive.Types              Data/Primitive/Types.hs:120:1-25                          4118          11    0.0    0.0     0.0    0.0
+          sizeOf#                            Data.Primitive.Types              Data/Primitive/Types.hs:286:73-103                        4119          11    0.0    0.0     0.0    0.0
+           unI#                              Data.Primitive.Types              Data/Primitive/Types.hs:251:1-17                          4120          11    0.0    0.0     0.0    0.0
+      basicUnsafeGrow.n                      Data.Vector.Generic.Mutable.Base  Data/Vector/Generic/Mutable/Base.hs:148:7-23              4104          11    0.0    0.0     0.0    0.0
+       basicLength                           Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:100:3-33                 4105          11    0.0    0.0     0.0    0.0
+      basicUnsafeNew                         Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:(112,3)-(118,37)         4106          11    0.0    0.0     0.0    0.1
+       basicUnsafeNew.mx                     Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:118:7-37                 4107          11    0.0    0.0     0.0    0.0
+       basicUnsafeNew.size                   Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:117:7-36                 4108          11    0.0    0.0     0.0    0.0
+        sizeOf                               Data.Primitive.Types              Data/Primitive/Types.hs:120:1-25                          4109          11    0.0    0.0     0.0    0.0
+         sizeOf#                             Data.Primitive.Types              Data/Primitive/Types.hs:286:73-103                        4110          11    0.0    0.0     0.0    0.0
+          unI#                               Data.Primitive.Types              Data/Primitive/Types.hs:251:1-17                          4111          11    0.0    0.0     0.0    0.0
+       primitive                             Control.Monad.Primitive           Control/Monad/Primitive.hs:206:3-16                       4112          11    0.0    0.1     0.0    0.1
+      basicUnsafeSlice                       Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:(101,3)-(102,25)         4113          11    0.0    0.0     0.0    0.0
+    enlarge_delta                            Data.Vector.Generic.Mutable       Data/Vector/Generic/Mutable.hs:562:1-34                   4099          11    0.0    0.0     0.0    0.0
+     basicLength                             Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:943-986                   4100          11    0.0    0.0     0.0    0.0
+      basicLength                            Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:100:3-33                 4101          11    0.0    0.0     0.0    0.0
+    basicUnsafeFreeze                        Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:310:511-584                   4140           1    0.0    0.0     0.0    0.0
+     basicUnsafeFreeze                       Data.Vector.Primitive             Data/Vector/Primitive.hs:(231,3)-(232,51)                 4141           1    0.0    0.0     0.0    0.0
+      primitive                              Control.Monad.Primitive           Control/Monad/Primitive.hs:206:3-16                       4142           1    0.0    0.0     0.0    0.0
+    basicUnsafeNew                           Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:309:1194-1249                 4080           1    0.0    0.0     0.0    0.0
+     basicUnsafeNew                          Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:(112,3)-(118,37)         4081           1    0.0    0.0     0.0    0.0
+      basicUnsafeNew.mx                      Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:118:7-37                 4082           1    0.0    0.0     0.0    0.0
+      basicUnsafeNew.size                    Data.Vector.Primitive.Mutable     Data/Vector/Primitive/Mutable.hs:117:7-36                 4083           1    0.0    0.0     0.0    0.0
+       sizeOf                                Data.Primitive.Types              Data/Primitive/Types.hs:120:1-25                          4084           1    0.0    0.0     0.0    0.0
+        sizeOf#                              Data.Primitive.Types              Data/Primitive/Types.hs:286:73-103                        4085           1    0.0    0.0     0.0    0.0
+         unI#                                Data.Primitive.Types              Data/Primitive/Types.hs:251:1-17                          4086           1    0.0    0.0     0.0    0.0
+      primitive                              Control.Monad.Primitive           Control/Monad/Primitive.hs:206:3-16                       4088           1    0.0    0.0     0.0    0.0
+    sChunks                                  Data.Vector.Fusion.Bundle.Monadic Data/Vector/Fusion/Bundle/Monadic.hs:123:30-36            4089           1    0.0    0.0     0.0    0.0
+    sSize                                    Data.Vector.Fusion.Bundle.Monadic Data/Vector/Fusion/Bundle/Monadic.hs:125:30-34            4078           1    0.0    0.0     0.0    0.0
+    upperBound                               Data.Vector.Fusion.Bundle.Size    Data/Vector/Fusion/Bundle/Size.hs:(126,1)-(128,30)        4077           1    0.0    0.0     0.0    0.0
+    zigguratXs                               Data.Random.Distribution.Ziggurat src/Data/Random/Distribution/Ziggurat.hs:(291,1)-(305,52) 4076           1    0.0    0.0     1.7    1.1
+     zigguratXs.xs                           Data.Random.Distribution.Ziggurat src/Data/Random/Distribution/Ziggurat.hs:293:9-33         4095           1    0.0    0.5     1.4    0.7
+      zigguratXs.x                           Data.Random.Distribution.Ziggurat src/Data/Random/Distribution/Ziggurat.hs:(296,9)-(300,84) 4129         513    0.0    0.0     1.4    0.3
+       zigguratXs.next                       Data.Random.Distribution.Ziggurat src/Data/Random/Distribution/Ziggurat.hs:(302,9)-(303,70) 4134         510    0.6    0.2     1.4    0.3
+        normalFInv                           Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:110:1-35           4136         510    0.0    0.1     0.0    0.1
+        zigguratXs.next.x_i                  Data.Random.Distribution.Ziggurat src/Data/Random/Distribution/Ziggurat.hs:302:22-32        4135         510    0.9    0.0     0.9    0.0
+     zigguratXs.ys                           Data.Random.Distribution.Ziggurat src/Data/Random/Distribution/Ziggurat.hs:294:9-29         4137           1    0.0    0.3     0.3    0.3
+      normalF                                Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(105,1)-(107,36)   4138         510    0.3    0.1     0.3    0.1
+     zigguratXs.x                            Data.Random.Distribution.Ziggurat src/Data/Random/Distribution/Ziggurat.hs:(296,9)-(300,84) 4130           0    0.0    0.0     0.0    0.0
+      normalF                                Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(105,1)-(107,36)   4132           1    0.0    0.0     0.0    0.0
+ main                                        Main                              app/Main.hs:(31,1)-(52,89)                                4009           0    0.9    0.0    78.4   81.4
+  main.\                                     Main                              app/Main.hs:(40,28)-(47,14)                               4407        1206    9.4   13.6    77.6   75.1
+   main.\.c                                  Main                              app/Main.hs:(42,9)-(45,19)                                4424        1206    0.0    0.3    11.9    0.8
+    floatCompare                             Main                              app/Main.hs:(58,1)-(60,27)                                4431        1206    0.0    0.0     0.0    0.0
+    main.f                                   Main                              app/Main.hs:37:7-53                                       4425           0    0.0    0.3    11.9    0.5
+     bipolarToUnipolar                       Main                              app/Main.hs:72:1-35                                       4430        2412    0.0    0.0     0.0    0.0
+     chebfun                                 Main                              app/Main.hs:(79,1)-(107,53)                               4426           0    0.0    0.0    11.9    0.3
+      chebfun.f                              Main                              app/Main.hs:(90,9)-(94,49)                                4427        2412    4.3    0.3    11.9    0.3
+       chebfun.f.term                        Main                              app/Main.hs:(92,13)-(94,49)                               4428      800784    7.7    0.0     7.7    0.0
+        chebfun.f.term.theta                 Main                              app/Main.hs:94:17-49                                      4429      800784    0.0    0.0     0.0    0.0
+   main.charAtNth                            Main                              app/Main.hs:(50,5)-(52,89)                                4420        1206    2.8   57.2     2.8   57.2
+   quantize                                  Main                              app/Main.hs:66:1-56                                       4419        1206    0.0    0.0     0.0    0.0
+   sleep                                     Motif                             src/Motif.hs:12:1-59                                      4432        1206   35.5    3.2    35.5    3.2
+   main.f                                    Main                              app/Main.hs:37:7-53                                       4409           0    0.3    0.1    17.9    0.3
+    bipolarToUnipolar                        Main                              app/Main.hs:72:1-35                                       4418        1206    0.0    0.0     0.0    0.0
+    chebfun                                  Main                              app/Main.hs:(79,1)-(107,53)                               4410           0    0.0    0.0    17.6    0.1
+     chebfun.f                               Main                              app/Main.hs:(90,9)-(94,49)                                4411        1206    4.8    0.1    17.6    0.1
+      chebfun.f.term                         Main                              app/Main.hs:(92,13)-(94,49)                               4416      400392   12.8    0.0    12.8    0.0
+       chebfun.f.term.theta                  Main                              app/Main.hs:94:17-49                                      4417      400392    0.0    0.0     0.0    0.0
+  chebfun                                    Main                              app/Main.hs:(79,1)-(107,53)                               4024           1    0.0    0.0     0.0    6.3
+   chebfun.mRandoms                          Main                              app/Main.hs:107:5-53                                      4026           2    0.0    0.1     0.0    6.1
+    sampleRVar                               Data.RVar                         src/Data/RVar.hs:90:1-53                                  4032           2    0.0    0.0     0.0    5.8
+     sampleRVarTWith                         Data.RVar                         src/Data/RVar.hs:(185,1)-(191,45)                         4033           2    0.0    0.0     0.0    5.8
+      runPromptT                             Control.Monad.Prompt              Control/Monad/Prompt.hs:(230,1)-(232,26)                  4034           2    0.0    0.0     0.0    5.8
+       runPromptC                            Control.Monad.Prompt              Control/Monad/Prompt.hs:130:1-37                          4035           2    0.0    0.0     0.0    5.8
+        runP                                 Control.Monad.Prompt              Control/Monad/Prompt.hs:89:5-8                            4036        8038    0.0    0.0     0.0    5.8
+         unPromptT                           Control.Monad.Prompt              Control/Monad/Prompt.hs:199:35-43                         4037        4027    0.0    0.0     0.0    0.0
+         >>=.\                               Data.RVar                         src/Data/RVar.hs:198:42-62                                4271        4018    0.0    1.2     0.0    2.5
+          unRVarT                            Data.RVar                         src/Data/RVar.hs:140:29-35                                4272        4018    0.0    0.0     0.0    0.0
+          return                             Data.RVar                         src/Data/RVar.hs:197:5-34                                 4273        2678    0.0    0.6     0.0    0.6
+           return                            Control.Monad.Prompt              Control/Monad/Prompt.hs:93:5-43                           4275        2678    0.0    0.0     0.0    0.0
+            return.\                         Control.Monad.Prompt              Control/Monad/Prompt.hs:93:38-43                          4276        2678    0.0    0.0     0.0    0.0
+             <*>                             Data.RVar                         src/Data/RVar.hs:205:5-14                                 4305           0    0.0    0.0     0.0    0.0
+              >>=                            Data.RVar                         src/Data/RVar.hs:198:5-63                                 4306           0    0.0    0.0     0.0    0.0
+               >>=                           Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4307           0    0.0    0.0     0.0    0.0
+                >>=                          Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4308           0    0.0    0.0     0.0    0.0
+                 >>=.\                       Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4309           0    0.0    0.0     0.0    0.0
+                  >>=.\.\                    Control.Monad.Prompt              Control/Monad/Prompt.hs:94:52-70                          4310        1332    0.0    0.0     0.0    0.0
+             >>=                             Data.RVar                         src/Data/RVar.hs:198:5-63                                 4395           0    0.0    0.0     0.0    0.0
+              >>=                            Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4396           0    0.0    0.0     0.0    0.0
+               >>=                           Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4397           0    0.0    0.0     0.0    0.0
+                >>=.\                        Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4398           0    0.0    0.0     0.0    0.0
+                 >>=.\.\                     Control.Monad.Prompt              Control/Monad/Prompt.hs:94:52-70                          4399         664    0.0    0.0     0.0    0.0
+             doubleStdNormal                 Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:151:1-46           4367           0    0.0    0.0     0.0    0.0
+              >>=                            Data.RVar                         src/Data/RVar.hs:198:5-63                                 4368           0    0.0    0.0     0.0    0.0
+               >>=                           Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4369           0    0.0    0.0     0.0    0.0
+                >>=                          Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4370           0    0.0    0.0     0.0    0.0
+                 >>=.\                       Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4371           0    0.0    0.0     0.0    0.0
+                  >>=.\.\                    Control.Monad.Prompt              Control/Monad/Prompt.hs:94:52-70                          4372          11    0.0    0.0     0.0    0.0
+             fmap                            Data.RVar                         src/Data/RVar.hs:194:5-16                                 4381           0    0.0    0.0     0.0    0.0
+              >>=                            Data.RVar                         src/Data/RVar.hs:198:5-63                                 4382           0    0.0    0.0     0.0    0.0
+               >>=                           Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4383           0    0.0    0.0     0.0    0.0
+                >>=                          Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4384           0    0.0    0.0     0.0    0.0
+                 >>=.\                       Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4385           0    0.0    0.0     0.0    0.0
+                  >>=.\.\                    Control.Monad.Prompt              Control/Monad/Prompt.hs:94:52-70                          4386           3    0.0    0.0     0.0    0.0
+             rvarT                           Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(224,5)-(227,26)   4277           0    0.0    0.0     0.0    0.0
+              >>=                            Data.RVar                         src/Data/RVar.hs:198:5-63                                 4278           0    0.0    0.0     0.0    0.0
+               >>=                           Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4279           0    0.0    0.0     0.0    0.0
+                >>=                          Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4280           0    0.0    0.0     0.0    0.0
+                 >>=.\                       Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4281           0    0.0    0.0     0.0    0.0
+                  >>=.\.\                    Control.Monad.Prompt              Control/Monad/Prompt.hs:94:52-70                          4282         666    0.0    0.0     0.0    0.0
+          doubleStdNormalZ.getIU.(...)       Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:171:17-48          4285         670    0.0    0.1     0.0    0.1
+          doubleStdNormalZ.getIU.i           Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:171:17-48          4284         670    0.0    0.0     0.0    0.0
+          doubleStdNormalZ.getIU.u           Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:171:17-48          4286         670    0.0    0.0     0.0    0.0
+          >>=                                Data.RVar                         src/Data/RVar.hs:198:5-63                                 4311         666    0.0    0.0     0.0    0.2
+           >>=                               Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4312         666    0.0    0.1     0.0    0.2
+            >>=                              Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4313         666    0.0    0.0     0.0    0.1
+             >>=.\                           Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4314         666    0.0    0.1     0.0    0.1
+          lerp                               Data.Random.Distribution.Uniform  src/Data/Random/Distribution/Uniform.hs:170:1-26          4366           7    0.0    0.0     0.0    0.0
+          normalF                            Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(105,1)-(107,36)   4374           7    0.0    0.0     0.0    0.0
+          doubleStdNormal                    Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:151:1-46           4283           0    0.0    0.2     0.0    0.4
+           unId                              Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:25:21-24                       4287        2680    0.0    0.0     0.0    0.0
+           basicLength                       Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:310:679-721                   4288        1340    0.0    0.0     0.0    0.0
+            basicLength                      Data.Vector.Primitive             Data/Vector/Primitive.hs:239:3-32                         4289        1340    0.0    0.0     0.0    0.0
+           basicUnsafeIndexM                 Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:310:841-899                   4290        1340    0.0    0.0     0.0    0.1
+            basicUnsafeIndexM                Data.Vector.Primitive             Data/Vector/Primitive.hs:245:3-75                         4291        1340    0.0    0.1     0.0    0.1
+             indexByteArray#                 Data.Primitive.Types              Data/Primitive/Types.hs:286:229-297                       4292        1340    0.0    0.0     0.0    0.0
+           return                            Data.RVar                         src/Data/RVar.hs:197:5-34                                 4293         663    0.0    0.1     0.0    0.1
+            return                           Control.Monad.Prompt              Control/Monad/Prompt.hs:93:5-43                           4294         663    0.0    0.0     0.0    0.0
+             return.\                        Control.Monad.Prompt              Control/Monad/Prompt.hs:93:38-43                          4295         663    0.0    0.0     0.0    0.0
+              fmap                           Data.RVar                         src/Data/RVar.hs:194:5-16                                 4296           0    0.0    0.0     0.0    0.0
+               >>=                           Data.RVar                         src/Data/RVar.hs:198:5-63                                 4297           0    0.0    0.0     0.0    0.0
+                >>=                          Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4298           0    0.0    0.0     0.0    0.0
+                 >>=                         Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4299           0    0.0    0.0     0.0    0.0
+                  >>=.\                      Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4300           0    0.0    0.0     0.0    0.0
+                   >>=.\.\                   Control.Monad.Prompt              Control/Monad/Prompt.hs:94:52-70                          4301         663    0.0    0.0     0.0    0.0
+           >>=                               Data.RVar                         src/Data/RVar.hs:198:5-63                                 4315           7    0.0    0.0     0.0    0.0
+            >>=                              Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4316           7    0.0    0.0     0.0    0.0
+             >>=                             Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4317           7    0.0    0.0     0.0    0.0
+              >>=.\                          Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4318          11    0.0    0.0     0.0    0.0
+               >>=.\.\                       Control.Monad.Prompt              Control/Monad/Prompt.hs:94:52-70                          4373           0    0.0    0.0     0.0    0.0
+         unId                                Data.Vector.Fusion.Util           Data/Vector/Fusion/Util.hs:25:21-24                       4320          28    0.0    0.0     0.0    0.0
+         basicLength                         Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:310:679-721                   4321          14    0.0    0.0     0.0    0.0
+          basicLength                        Data.Vector.Primitive             Data/Vector/Primitive.hs:239:3-32                         4322          14    0.0    0.0     0.0    0.0
+         basicUnsafeIndexM                   Data.Vector.Unboxed.Base          Data/Vector/Unboxed/Base.hs:310:841-899                   4323          14    0.0    0.0     0.0    0.0
+          basicUnsafeIndexM                  Data.Vector.Primitive             Data/Vector/Primitive.hs:245:3-75                         4324          14    0.0    0.0     0.0    0.0
+           indexByteArray#                   Data.Primitive.Types              Data/Primitive/Types.hs:286:229-297                       4325          14    0.0    0.0     0.0    0.0
+         uniformT                            Data.Random.Distribution.Uniform  src/Data/Random/Distribution/Uniform.hs:236:1-34          4319           7    0.0    0.0     0.0    0.0
+          rvarT                              Data.Random.Distribution.Uniform  src/Data/Random/Distribution/Uniform.hs:329:51-89         4326           7    0.0    0.0     0.0    0.0
+           >>=                               Data.RVar                         src/Data/RVar.hs:198:5-63                                 4327           7    0.0    0.0     0.0    0.0
+            >>=                              Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4328           7    0.0    0.0     0.0    0.0
+             >>=                             Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4329           7    0.0    0.0     0.0    0.0
+              >>=.\                          Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4330           7    0.0    0.0     0.0    0.0
+         <*>                                 Data.RVar                         src/Data/RVar.hs:205:5-14                                 4038           0    0.0    0.0     0.0    0.3
+          >>=                                Data.RVar                         src/Data/RVar.hs:198:5-63                                 4039           0    0.0    0.0     0.0    0.3
+           >>=                               Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4040           0    0.0    0.0     0.0    0.3
+            >>=                              Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4041           0    0.0    0.0     0.0    0.3
+             >>=.\                           Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4042        1332    0.0    0.3     0.0    0.3
+              >>=.\.\                        Control.Monad.Prompt              Control/Monad/Prompt.hs:94:52-70                          4394           2    0.0    0.0     0.0    0.0
+            fmap                             Data.RVar                         src/Data/RVar.hs:194:5-16                                 4049           0    0.0    0.0     0.0    0.0
+            return                           Data.RVar                         src/Data/RVar.hs:197:5-34                                 4390           0    0.0    0.0     0.0    0.0
+             return                          Control.Monad.Prompt              Control/Monad/Prompt.hs:93:5-43                           4391           0    0.0    0.0     0.0    0.0
+              return.\                       Control.Monad.Prompt              Control/Monad/Prompt.hs:93:38-43                          4392           2    0.0    0.0     0.0    0.0
+               >>=.\                         Data.RVar                         src/Data/RVar.hs:198:42-62                                4393           0    0.0    0.0     0.0    0.0
+         doubleStdNormal                     Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:151:1-46           4235           0    0.0    0.0     0.0    0.1
+          >>=                                Data.RVar                         src/Data/RVar.hs:198:5-63                                 4236           0    0.0    0.0     0.0    0.1
+           >>=                               Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4237           0    0.0    0.0     0.0    0.1
+            >>=                              Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4238           0    0.0    0.0     0.0    0.1
+             >>=.\                           Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4239         670    0.0    0.1     0.0    0.1
+         doubleStdNormalZ                    Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(162,1)-(172,70)   4250           0    0.0    0.0     0.0    2.6
+          doubleStdNormalZ.getIU             Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(169,9)-(172,70)   4251           0    0.0    0.0     0.0    2.6
+           >>=                               Data.RVar                         src/Data/RVar.hs:198:5-63                                 4252           0    0.0    0.0     0.0    2.6
+            >>=                              Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4253           0    0.0    0.0     0.0    2.6
+             >>=                             Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4268           0    0.0    0.0     0.0    0.0
+              >>=.\                          Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4269           0    0.0    0.0     0.0    0.0
+               >>=.\.\                       Control.Monad.Prompt              Control/Monad/Prompt.hs:94:52-70                          4270         677    0.0    0.0     0.0    0.0
+             getRandomDouble                 Data.Random.Internal.Source       src/Data/Random/Internal/Source.hs:71:5-46                4348           0    0.0    0.0     0.0    1.7
+              getRandomPrim                  Data.RVar                         src/Data/RVar.hs:201:5-34                                 4349           0    0.0    0.0     0.0    1.7
+               prompt                        Control.Monad.Prompt              Control/Monad/Prompt.hs:104:5-47                          4350           0    0.0    0.0     0.0    1.7
+                prompt.\                     Control.Monad.Prompt              Control/Monad/Prompt.hs:104:38-47                         4351           0    0.0    0.0     0.0    1.7
+                 runPromptT.prm'             Control.Monad.Prompt              Control/Monad/Prompt.hs:(231,4)-(232,26)                  4352           0    0.0    0.0     0.0    1.7
+                  sampleRVarTWith.bindP      Data.RVar                         src/Data/RVar.hs:188:9-53                                 4353           0    0.0    0.0     0.0    1.7
+                   doubleStdNormal           Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:151:1-46           4380           0    0.0    0.0     0.0    0.0
+                   getRandomPrim             Data.Random.Source.IO             src/Data/Random/Source/IO.hs:15:5-48                      4358           0    0.0    0.0     0.0    1.7
+                    getRandomPrimFrom        Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(38,3)-(52,7)         4359           0    0.0    0.0     0.0    1.7
+                     getRandomDoubleFrom     Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(38,3)-(52,7)         4360           0    0.0    0.0     0.0    0.0
+                      getRandomWord64From    Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(38,3)-(52,7)         4361           7    0.0    0.0     0.0    0.0
+                       getRandomWord64From.\ Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(38,3)-(52,7)         4362           7    0.0    0.0     0.0    0.0
+                        dev                  Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(35,1)-(36,27)        4363           7    0.0    0.0     0.0    0.0
+                     getRandomWord64From     Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(38,3)-(52,7)         4376           0    0.0    0.3     0.0    1.7
+                      getRandomWord64From.\  Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(38,3)-(52,7)         4378         637    0.0    1.4     0.0    1.4
+                       dev                   Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(35,1)-(36,27)        4379         637    0.0    0.0     0.0    0.0
+                      getRandomWord64        Data.Random.Internal.Source       src/Data/Random/Internal/Source.hs:67:5-46                4377           0    0.0    0.0     0.0    0.0
+                   getRandomWord64           Data.Random.Internal.Source       src/Data/Random/Internal/Source.hs:67:5-46                4375           0    0.0    0.0     0.0    0.0
+                   rvarT                     Data.Random.Distribution.Uniform  src/Data/Random/Distribution/Uniform.hs:329:51-89         4357           0    0.0    0.0     0.0    0.0
+                   uniformT                  Data.Random.Distribution.Uniform  src/Data/Random/Distribution/Uniform.hs:236:1-34          4364           0    0.0    0.0     0.0    0.0
+                    rvarT                    Data.Random.Distribution.Uniform  src/Data/Random/Distribution/Uniform.hs:329:51-89         4365           0    0.0    0.0     0.0    0.0
+             getRandomWord64                 Data.Random.Internal.Source       src/Data/Random/Internal/Source.hs:67:5-46                4254           0    0.0    0.0     0.0    0.9
+              getRandomPrim                  Data.RVar                         src/Data/RVar.hs:201:5-34                                 4255           0    0.0    0.0     0.0    0.9
+               prompt                        Control.Monad.Prompt              Control/Monad/Prompt.hs:104:5-47                          4256           0    0.0    0.0     0.0    0.9
+                prompt.\                     Control.Monad.Prompt              Control/Monad/Prompt.hs:104:38-47                         4257         670    0.0    0.0     0.0    0.9
+                 runPromptT.prm'             Control.Monad.Prompt              Control/Monad/Prompt.hs:(231,4)-(232,26)                  4258         670    0.0    0.1     0.0    0.9
+                  sampleRVarTWith.bindP      Data.RVar                         src/Data/RVar.hs:188:9-53                                 4259         670    0.0    0.3     0.0    0.8
+                   doubleStdNormal           Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:151:1-46           4267           0    0.0    0.0     0.0    0.0
+                   getRandomPrim             Data.Random.Source.IO             src/Data/Random/Source/IO.hs:15:5-48                      4261           0    0.0    0.0     0.0    0.4
+                    getRandomPrimFrom        Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(38,3)-(52,7)         4262         670    0.0    0.1     0.0    0.4
+                     getRandomWord64From     Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(38,3)-(52,7)         4263         670    0.0    0.3     0.0    0.3
+                      getRandomWord64From.\  Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(38,3)-(52,7)         4264          33    0.0    0.1     0.0    0.1
+                       dev                   Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(35,1)-(36,27)        4265          33    0.0    0.0     0.0    0.0
+                   rvarT                     Data.Random.Distribution.Uniform  src/Data/Random/Distribution/Uniform.hs:329:51-89         4347           0    0.0    0.0     0.0    0.0
+         fmap                                Data.RVar                         src/Data/RVar.hs:194:5-16                                 4058           0    0.0    0.0     0.0    0.2
+          >>=                                Data.RVar                         src/Data/RVar.hs:198:5-63                                 4059           0    0.0    0.0     0.0    0.2
+           >>=                               Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4060           0    0.0    0.0     0.0    0.2
+            >>=                              Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4064           0    0.0    0.0     0.0    0.2
+             >>=.\                           Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4065         666    0.0    0.2     0.0    0.2
+            chebfun.distribution             Main                              app/Main.hs:104:5-39                                      4061           0    0.0    0.0     0.0    0.0
+             normal                          Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:257:1-30           4062           0    0.0    0.0     0.0    0.0
+              rvarT                          Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(224,5)-(227,26)   4063           0    0.0    0.0     0.0    0.0
+         rvarT                               Data.Random.Distribution.Uniform  src/Data/Random/Distribution/Uniform.hs:329:51-89         4338           0    0.0    0.0     0.0    0.0
+          >>=                                Data.RVar                         src/Data/RVar.hs:198:5-63                                 4339           0    0.0    0.0     0.0    0.0
+           >>=                               Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4340           0    0.0    0.0     0.0    0.0
+            getRandomDouble                  Data.Random.Internal.Source       src/Data/Random/Internal/Source.hs:71:5-46                4341           0    0.0    0.0     0.0    0.0
+             getRandomPrim                   Data.RVar                         src/Data/RVar.hs:201:5-34                                 4342           0    0.0    0.0     0.0    0.0
+              prompt                         Control.Monad.Prompt              Control/Monad/Prompt.hs:104:5-47                          4343           0    0.0    0.0     0.0    0.0
+               prompt.\                      Control.Monad.Prompt              Control/Monad/Prompt.hs:104:38-47                         4344           7    0.0    0.0     0.0    0.0
+                runPromptT.prm'              Control.Monad.Prompt              Control/Monad/Prompt.hs:(231,4)-(232,26)                  4345           7    0.0    0.0     0.0    0.0
+                 sampleRVarTWith.bindP       Data.RVar                         src/Data/RVar.hs:188:9-53                                 4346           7    0.0    0.0     0.0    0.0
+                  getRandomPrim              Data.Random.Source.IO             src/Data/Random/Source/IO.hs:15:5-48                      4354           0    0.0    0.0     0.0    0.0
+                   getRandomPrimFrom         Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(38,3)-(52,7)         4355           7    0.0    0.0     0.0    0.0
+                    getRandomDoubleFrom      Data.Random.Source.DevRandom      src/Data/Random/Source/DevRandom.hs:(38,3)-(52,7)         4356           7    0.0    0.0     0.0    0.0
+         rvarT                               Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(224,5)-(227,26)   4226           0    0.0    0.0     0.0    0.1
+          >>=                                Data.RVar                         src/Data/RVar.hs:198:5-63                                 4227           0    0.0    0.0     0.0    0.1
+           >>=                               Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4228           0    0.0    0.0     0.0    0.1
+            >>=                              Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4230           0    0.0    0.0     0.0    0.1
+             >>=.\                           Control.Monad.Prompt              Control/Monad/Prompt.hs:94:38-75                          4231         666    0.0    0.1     0.0    0.1
+            doubleStdNormal                  Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:151:1-46           4229           0    0.0    0.0     0.0    0.0
+    <*>                                      Data.RVar                         src/Data/RVar.hs:205:5-14                                 4028           0    0.0    0.0     0.0    0.1
+     >>=                                     Data.RVar                         src/Data/RVar.hs:198:5-63                                 4029         333    0.0    0.0     0.0    0.1
+      >>=                                    Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4030         333    0.0    0.1     0.0    0.1
+       unPromptT                             Control.Monad.Prompt              Control/Monad/Prompt.hs:199:35-43                         4043         666    0.0    0.0     0.0    0.0
+       >>=                                   Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4031         333    0.0    0.0     0.0    0.0
+    fmap                                     Data.RVar                         src/Data/RVar.hs:194:5-16                                 4045           0    0.0    0.0     0.0    0.0
+     >>=                                     Data.RVar                         src/Data/RVar.hs:198:5-63                                 4046           1    0.0    0.0     0.0    0.0
+      >>=                                    Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4047           1    0.0    0.0     0.0    0.0
+       >>=                                   Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4048           1    0.0    0.0     0.0    0.0
+       unPromptT                             Control.Monad.Prompt              Control/Monad/Prompt.hs:199:35-43                         4050           1    0.0    0.0     0.0    0.0
+   chebfun.a0                                Main                              app/Main.hs:87:9-23                                       4412           1    0.0    0.0     0.0    0.0
+   chebfun.distribution                      Main                              app/Main.hs:104:5-39                                      4051           1    0.0    0.0     0.0    0.0
+    normal                                   Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:257:1-30           4052           1    0.0    0.0     0.0    0.0
+     rvarT                                   Data.Random.Distribution.Normal   src/Data/Random/Distribution/Normal.hs:(224,5)-(227,26)   4054           1    0.0    0.0     0.0    0.0
+      >>=                                    Data.RVar                         src/Data/RVar.hs:198:5-63                                 4055           1    0.0    0.0     0.0    0.0
+       >>=                                   Control.Monad.Prompt              Control/Monad/Prompt.hs:206:4-54                          4056           1    0.0    0.0     0.0    0.0
+        >>=                                  Control.Monad.Prompt              Control/Monad/Prompt.hs:94:5-75                           4057           1    0.0    0.0     0.0    0.0
+   chebfun.jsasbs                            Main                              app/Main.hs:88:9-54                                       4413           1    0.0    0.2     0.0    0.2
+   chebfun.m                                 Main                              app/Main.hs:98:5-35                                       4025           1    0.0    0.0     0.0    0.0
+   chebfun.variance                          Main                              app/Main.hs:101:5-43                                      4302           1    0.0    0.0     0.0    0.0
+  main.f                                     Main                              app/Main.hs:37:7-53                                       4408           1    0.0    0.0     0.0    0.0
+  getWidth                                   Main                              app/Main.hs:(26,1)-(28,12)                                4011           0    0.0    0.0     0.0    0.0
+   size                                      System.Console.Terminal.Size      src/System/Console/Terminal/Size.hs:32:1-16               4012           1    0.0    0.0     0.0    0.0
+    size                                     System.Console.Terminal.Posix     src/System/Console/Terminal/Posix.hsc:58:1-22             4013           1    0.0    0.0     0.0    0.0
+     fdSize                                  System.Console.Terminal.Posix     src/System/Console/Terminal/Posix.hsc:(43,1)-(52,28)      4014           1    0.0    0.0     0.0    0.0
+      alignment                              System.Console.Terminal.Posix     src/System/Console/Terminal/Posix.hsc:32:3-19             4016           1    0.0    0.0     0.0    0.0
+      fdSize.\                               System.Console.Terminal.Posix     src/System/Console/Terminal/Posix.hsc:(43,43)-(49,9)      4020           1    0.0    0.0     0.0    0.0
+       peek                                  System.Console.Terminal.Posix     src/System/Console/Terminal/Posix.hsc:(33,3)-(36,25)      4021           1    0.0    0.0     0.0    0.0
+        peek.\                               System.Console.Terminal.Posix     src/System/Console/Terminal/Posix.hsc:35:26-46            4023           1    0.0    0.0     0.0    0.0
+        peek.\                               System.Console.Terminal.Posix     src/System/Console/Terminal/Posix.hsc:34:26-46            4022           1    0.0    0.0     0.0    0.0
+      poke                                   System.Console.Terminal.Posix     src/System/Console/Terminal/Posix.hsc:(37,3)-(39,49)      4017           1    0.0    0.0     0.0    0.0
+       poke.\                                System.Console.Terminal.Posix     src/System/Console/Terminal/Posix.hsc:39:19-39            4019           1    0.0    0.0     0.0    0.0
+       poke.\                                System.Console.Terminal.Posix     src/System/Console/Terminal/Posix.hsc:38:19-39            4018           1    0.0    0.0     0.0    0.0
+      sizeOf                                 System.Console.Terminal.Posix     src/System/Console/Terminal/Posix.hsc:31:3-18             4015           1    0.0    0.0     0.0    0.0

@@ -15,6 +15,13 @@ packages:
   original:
     git: https://github.com/sullyj3/motif.git
     commit: 68a9e490523eb85d209b052a6d61288f1ec8cbf8
+- completed:
+    hackage: streamly-0.8.0@sha256:0513eff994ebac2438d5ef58041fe70e0610ecd213c588fb8be3b6b72f9d61b9,20201
+    pantry-tree:
+      size: 21676
+      sha256: c82bec3985b471396a52a018d9da898ce183283843f11400f0c69a8bd5a85aca
+  original:
+    hackage: streamly-0.8.0@sha256:0513eff994ebac2438d5ef58041fe70e0610ecd213c588fb8be3b6b72f9d61b9,20201
 snapshots:
 - completed:
     size: 586292

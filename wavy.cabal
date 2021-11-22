@@ -24,8 +24,6 @@ source-repository head
   location: https://github.com/githubuser/wavy
 
 library
-  exposed-modules:
-      Lib
   other-modules:
       Paths_wavy
   hs-source-dirs:
@@ -36,6 +34,7 @@ library
     , random-fu
     , rvar
     , stm
+    , streamly ==0.8.*
     , terminal-size
     , text
     , unix
@@ -54,6 +53,7 @@ executable wavy-exe
     , random-fu
     , rvar
     , stm
+    , streamly ==0.8.*
     , terminal-size
     , text
     , unix
@@ -74,6 +74,7 @@ test-suite wavy-test
     , random-fu
     , rvar
     , stm
+    , streamly ==0.8.*
     , terminal-size
     , text
     , unix

@@ -28,6 +28,7 @@ dependencies:
 - motif
 - random-fu
 - rvar
+- streamly == 0.8.*
 
 library:
   source-dirs: src

@@ -1,3 +1,4 @@
+{-# LANGUAGE BangPatterns #-}
 {-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE NumericUnderscores #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -8,6 +9,7 @@ module Main where
 import Control.Concurrent
 import Control.Concurrent.STM.TVar
 import Control.Monad
+import Control.Monad.IO.Class
 import Control.Monad.STM
 import Data.Foldable
 import Data.Function (on)
@@ -18,6 +20,9 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
 import Motif
+import qualified Streamly.Internal.Data.Unfold as Unfold
+import Streamly.Prelude (SerialT, Serial)
+import qualified Streamly.Prelude as S
 import qualified System.Console.Terminal.Size as Term
 import System.Posix.Signals
 import System.Posix.Signals.Exts
@@ -33,28 +38,54 @@ main = do
   let winCHHandler = atomically . writeTVar widthVar =<< getWidth
   installHandler sigWINCH (Catch winCHHandler) Nothing
 
-  randFun <- chebfun 0.3 100
+  randFun <- chebfun 1 100
   let f = bipolarToUnipolar . tanh . (* 10) . randFun
-      delta = 0.005
+      sampleRate = 50
 
-  for_ [0, delta ..] \x -> do
-    width <- readTVarIO widthVar
-    let c = case floatCompare 0.003 (f (x-delta)) (f x) of
-          LT -> '\\'
-          EQ -> '|'
-          GT -> '/'
-    T.putStrLn $ charAtNth width (quantize width . f $ x) c
-    sleep 0.01
+      theStream :: Serial Text
+      theStream = funTime sampleRate f
+        |> keepLast
+        |> S.map (\(y, y') -> 
+              let dy = y' - y
+                  char = case floatCompare 0.003 dy 0 of
+                    GT -> '\\'
+                    EQ -> '|'
+                    LT -> '/'
+              in (y', char)
+          )
+        |> S.zipWith (\width (y, char) -> (quantize width y, char))
+          (S.repeatM $ readTVarIO widthVar)
+        |> S.map (\(n, char) -> T.replicate n " " <> T.singleton char)
+      
+  theStream |> S.mapM_ T.putStrLn
+
+-- | ------------ | --
+-- | Stream stuff | --
+-- | ------------ | --
+keepLast :: Monad m => SerialT m a -> SerialT m (a, a)
+keepLast = S.postscanl' pair (undefined, undefined) .> S.drop 1
   where
-    charAtNth :: Int -> Int -> Char -> Text
-    charAtNth width n c
-      | n >= width = T.replicate width " "
-      | otherwise = T.replicate n " " <> T.singleton c <> T.replicate (width - n - 1) " "
+    pair (_, prev) !curr = (prev, curr)
+
+-- | Transforms a function of time (in seconds) into a stream of values emitted at the
+-- given frequency
+funTime ::
+  MonadIO m =>
+  -- | The sample rate in Hz
+  Double ->
+  -- | Function of time in seconds
+  (Double -> a) ->
+  SerialT m a
+funTime sampleRate f =
+  S.unfold (Unfold.enumerateFromStepNum dt) 0
+    |> S.delay dt
+    |> S.map f
+  where
+    dt = 1 / sampleRate
 
 -- | --------------- | --
 -- | Numerical stuff | --
 -- | --------------- | --
-
 floatCompare epsilon a b
   | abs (a - b) < epsilon = EQ
   | otherwise = compare a b
@@ -64,7 +95,6 @@ sinusoid a b h k x = a * sin (b * (x - h)) + k
 -- take a function with range [0,1], quantize it and scale it to [0,steps)
 quantize :: Int -> Double -> Int
 quantize steps x = round $ (fromIntegral (steps -1)) * x
-
 
 -- not sure if this is the right terminology - takes functions with range
 -- [-1,1] to [0,1]
