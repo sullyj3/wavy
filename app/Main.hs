@@ -21,7 +21,7 @@ import qualified Data.Text as T
 import qualified Data.Text.IO as T
 import Motif
 import qualified Streamly.Internal.Data.Unfold as Unfold
-import Streamly.Prelude (SerialT, Serial)
+import Streamly.Prelude (Serial, SerialT)
 import qualified Streamly.Prelude as S
 import qualified System.Console.Terminal.Size as Term
 import System.Posix.Signals
@@ -43,20 +43,23 @@ main = do
       sampleRate = 50
 
       theStream :: Serial Text
-      theStream = funTime sampleRate f
-        |> keepLast
-        |> S.map (\(y, y') -> 
-              let dy = y' - y
-                  char = case floatCompare 0.003 dy 0 of
-                    GT -> '\\'
-                    EQ -> '|'
-                    LT -> '/'
-              in (y', char)
-          )
-        |> S.zipWith (\width (y, char) -> (quantize width y, char))
-          (S.repeatM $ readTVarIO widthVar)
-        |> S.map (\(n, char) -> T.replicate n " " <> T.singleton char)
-      
+      theStream =
+        funTime sampleRate f
+          |> keepLast
+          |> S.map
+            ( \(y, y') ->
+                let dy = y' - y
+                    char = case floatCompare 0.003 dy 0 of
+                      GT -> '\\'
+                      EQ -> '|'
+                      LT -> '/'
+                 in (y', char)
+            )
+          |> S.zipWith
+            (\width (y, char) -> (quantize width y, char))
+            (S.repeatM $ readTVarIO widthVar)
+          |> S.map (\(n, char) -> T.replicate n " " <> T.singleton char)
+
   theStream |> S.mapM_ T.putStrLn
 
 -- | ------------ | --
