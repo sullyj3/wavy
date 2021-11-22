@@ -43,7 +43,7 @@ main = do
       sampleRate = 50
 
   funTime sampleRate f
-    |> keepLast
+    |> keepPrev
     .> S.map
       ( \(y, y') ->
           let dy = y' - y
@@ -62,8 +62,14 @@ main = do
 -- | ------------ | --
 -- | Stream stuff | --
 -- | ------------ | --
-keepLast :: Monad m => SerialT m a -> SerialT m (a, a)
-keepLast = S.postscanl' pair (undefined, undefined) .> S.drop 1
+
+-- >>> S.fromList [1..10] |> keepPrev |> S.toList
+-- [(1,2),(2,3),(3,4),(4,5),(5,6),(6,7),(7,8),(8,9),(9,10)]
+
+-- >>> S.fromList [1] |> keepPrev |> S.toList
+-- []
+keepPrev :: Monad m => SerialT m a -> SerialT m (a, a)
+keepPrev = S.postscanl' pair (undefined, undefined) .> S.drop 1
   where
     pair (_, prev) !curr = (prev, curr)
 
@@ -94,7 +100,7 @@ sinusoid a b h k x = a * sin (b * (x - h)) + k
 
 -- take a function with range [0,1], quantize it and scale it to [0,steps)
 quantize :: Int -> Double -> Int
-quantize steps x = round $ (fromIntegral (steps -1)) * x
+quantize steps x = round $ fromIntegral (steps -1) * x
 
 -- not sure if this is the right terminology - takes functions with range
 -- [-1,1] to [0,1]
