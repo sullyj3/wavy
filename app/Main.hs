@@ -42,25 +42,22 @@ main = do
   let f = bipolarToUnipolar . tanh . (* 10) . randFun
       sampleRate = 50
 
-      theStream :: Serial Text
-      theStream =
-        funTime sampleRate f
-          |> keepLast
-          |> S.map
-            ( \(y, y') ->
-                let dy = y' - y
-                    char = case floatCompare 0.003 dy 0 of
-                      GT -> '\\'
-                      EQ -> '|'
-                      LT -> '/'
-                 in (y', char)
-            )
-          |> S.zipWith
-            (\width (y, char) -> (quantize width y, char))
-            (S.repeatM $ readTVarIO widthVar)
-          |> S.map (\(n, char) -> T.replicate n " " <> T.singleton char)
-
-  theStream |> S.mapM_ T.putStrLn
+  funTime sampleRate f
+    |> keepLast
+    .> S.map
+      ( \(y, y') ->
+          let dy = y' - y
+              char = case floatCompare 0.003 dy 0 of
+                GT -> '\\'
+                EQ -> '|'
+                LT -> '/'
+           in (y', char)
+      )
+    .> S.zipWith
+      (\width (y, char) -> (quantize width y, char))
+      (S.repeatM $ readTVarIO widthVar)
+    .> S.map (\(n, char) -> T.replicate n " " <> T.singleton char)
+    .> S.mapM_ T.putStrLn
 
 -- | ------------ | --
 -- | Stream stuff | --
