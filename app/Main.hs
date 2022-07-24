@@ -6,26 +6,27 @@
 
 module Main where
 
-import Control.Concurrent
+import Control.Concurrent ()
 import Control.Concurrent.STM.TVar
-import Control.Monad
-import Control.Monad.IO.Class
-import Control.Monad.STM
-import Data.Foldable
+    ( newTVarIO, readTVarIO, writeTVar )
+import Control.Monad ( replicateM )
+import Control.Monad.IO.Class ( MonadIO )
+import Control.Monad.STM ( atomically )
+import Data.Foldable ()
 import Data.Function (on)
 import qualified Data.List.NonEmpty as NE
-import Data.RVar
-import Data.Random
+import Data.RVar ( runRVar, sampleRVar, MonadRandom, RVar )
+import Data.Random ( normal, StdRandom(StdRandom) )
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
-import Motif
+import Motif ( (.>), (|>) )
 import qualified Streamly.Internal.Data.Unfold as Unfold
 import Streamly.Prelude (Serial, SerialT)
 import qualified Streamly.Prelude as S
 import qualified System.Console.Terminal.Size as Term
-import System.Posix.Signals
-import System.Posix.Signals.Exts
+import System.Posix.Signals ( installHandler, Handler(Catch) )
+import System.Posix.Signals.Exts ( sigWINCH )
 
 getWidth :: IO Int
 getWidth = do
