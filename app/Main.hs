@@ -1,4 +1,5 @@
 {-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE NumericUnderscores #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -15,8 +16,10 @@ import Control.Monad.STM ( atomically )
 import Data.Foldable ()
 import Data.Function (on)
 import qualified Data.List.NonEmpty as NE
-import Data.RVar ( runRVar, sampleRVar, MonadRandom, RVar )
-import Data.Random ( normal, StdRandom(StdRandom) )
+-- import Data.RVar ( runRVar, sampleRVar, MonadRandom, RVar )
+-- import Data.Random ( normal, StdRandom(StdRandom) )
+import Control.Monad.Bayes.Sampler (sampleIO)
+import Control.Monad.Bayes.Class (normal, MonadSample)
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
@@ -39,7 +42,7 @@ main = do
   let winCHHandler = atomically . writeTVar widthVar =<< getWidth
   installHandler sigWINCH (Catch winCHHandler) Nothing
 
-  randFun <- chebfun 1 100
+  randFun <- sampleIO $ chebfun 1 100
   let f = bipolarToUnipolar . tanh . (* 10) . randFun
       sampleRate = 50
 
@@ -112,10 +115,10 @@ bipolarToUnipolar x = (x / 2) + 0.5
 -- "Smooth Random Functions, Random ODEs, and Gaussian Processes"
 -- - Silviu Filip, Aurya Javeed, Lloyd N. Trefethen
 -- https://epubs.siam.org/doi/pdf/10.1137/17M1161853
-chebfun :: MonadRandom m => Double -> Double -> m (Double -> Double)
+chebfun :: forall m. MonadSample m => Double -> Double -> m (Double -> Double)
 chebfun wavelength period
   | m <= 0 = do
-    a0 <- runRVar distribution StdRandom
+    a0 <- distribution
     pure $ const a0
   | otherwise = do
     -- these are nonempty, since m > 0
@@ -131,14 +134,8 @@ chebfun wavelength period
                 theta = (2 * pi * j * x) / period
     pure f
   where
-    m :: Int
     m = floor (period / wavelength)
     mean = 0
-    variance :: Double
     variance = 1 / (2 * fromIntegral m + 1)
-
-    distribution :: RVar Double
     distribution = normal mean variance
-
-    mRandoms :: MonadRandom m => m [Double]
-    mRandoms = sampleRVar $ replicateM m distribution
+    mRandoms = replicateM m distribution

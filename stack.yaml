@@ -17,8 +17,7 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
-resolver:
-  url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/17.yaml
+resolver: nightly-2022-08-01
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -44,6 +43,8 @@ extra-deps:
 - git: https://github.com/sullyj3/motif.git
   commit: 68a9e490523eb85d209b052a6d61288f1ec8cbf8
 - streamly-0.8.0@sha256:0513eff994ebac2438d5ef58041fe70e0610ecd213c588fb8be3b6b72f9d61b9,20201
+- git: git@github.com:tweag/monad-bayes.git
+  commit: 45915140eb681f4be34809216305fa9b89847ee7
 
 # Override default flag values for local packages and extra-deps
 # flags: {}

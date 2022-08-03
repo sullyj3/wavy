@@ -30,9 +30,8 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , monad-bayes
     , motif
-    , random-fu
-    , rvar
     , stm
     , streamly ==0.8.*
     , terminal-size
@@ -49,9 +48,8 @@ executable wavy-exe
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , monad-bayes
     , motif
-    , random-fu
-    , rvar
     , stm
     , streamly ==0.8.*
     , terminal-size
@@ -70,9 +68,8 @@ test-suite wavy-test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , monad-bayes
     , motif
-    , random-fu
-    , rvar
     , stm
     , streamly ==0.8.*
     , terminal-size
