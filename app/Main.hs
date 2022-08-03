@@ -24,7 +24,6 @@ import Control.Monad.Bayes.Class (normal, MonadSample)
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
-import Motif ( (.>), (|>) )
 import qualified Streamly.Internal.Data.Unfold as Unfold
 import Streamly.Prelude (Serial, SerialT)
 import qualified Streamly.Prelude as Stream
@@ -65,15 +64,12 @@ main = do
 -- given frequency
 funTime ::
   MonadIO m =>
-  -- | The sample rate in Hz
-  Double ->
-  -- | Function of time in seconds
-  (Double -> a) ->
+  Double ->        -- | The sample rate in Hz
+  (Double -> a) -> -- | Function of time in seconds
   SerialT m a
-funTime sampleRate f =
-  Stream.unfold (Unfold.enumerateFromStepNum dt) 0
-    |> Stream.delay dt
-    |> Stream.map f
+funTime sampleRate f = Stream.map f 
+                     . Stream.delay dt 
+                     . Stream.unfold (Unfold.enumerateFromStepNum dt) $ 0
   where
     dt = 1 / sampleRate
 

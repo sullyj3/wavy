@@ -25,7 +25,6 @@ dependencies:
 - text
 - unix
 - stm
-- motif
 - monad-bayes
 - streamly == 0.8.*
 - buttplug-hs

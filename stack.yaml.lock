@@ -5,17 +5,6 @@
 
 packages:
 - completed:
-    name: motif
-    version: 0.1.0.0
-    git: https://github.com/sullyj3/motif.git
-    pantry-tree:
-      size: 401
-      sha256: a67739f86047443e6a457e97e68611669c2a9d06ee90326ea9f39372fba73cdb
-    commit: 68a9e490523eb85d209b052a6d61288f1ec8cbf8
-  original:
-    git: https://github.com/sullyj3/motif.git
-    commit: 68a9e490523eb85d209b052a6d61288f1ec8cbf8
-- completed:
     hackage: streamly-0.8.0@sha256:0513eff994ebac2438d5ef58041fe70e0610ecd213c588fb8be3b6b72f9d61b9,20201
     pantry-tree:
       size: 21676
