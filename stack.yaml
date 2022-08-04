@@ -44,7 +44,7 @@ extra-deps:
 - git: git@github.com:tweag/monad-bayes.git
   commit: 45915140eb681f4be34809216305fa9b89847ee7
 - git: git@github.com:sullyj3/buttplug-hs.git
-  commit: efa89b070d162f1cab876d97624d2dc9e38b1a67
+  commit: 142f680c620daba673e915d72fd63a3c8de4b827
 - git: git@github.com:sullyj3/buttplug-hs-core.git
   commit: ea7476e63cdd23f49e3f810de8894c02b43c02fd
 

@@ -31,30 +31,42 @@ import qualified System.Console.Terminal.Size as Term
 import System.Posix.Signals ( installHandler, Handler(Catch) )
 import System.Posix.Signals.Exts ( sigWINCH )
 import Buttplug
+import Buttplug.Message (Device)
 import qualified Buttplug.WebSockets as BPWS
 import Control.Monad.IO.Class (liftIO)
 import Ki.Unlifted (fork, scoped)
 
+
+waitForEnter msg = do
+  putStrLn msg
+  getLine
+  pure ()
+
+
 main :: IO ()
 main = do
-  BPWS.runButtplugWebSockets "wavy" (BPWS.Connector "localhost" 12345) $ do
+  BPWS.runButtplugWebSockets "wavy" (BPWS.Connector "127.0.0.1" 12345) $ do
+    addDeviceConnectedHandler $ \dev -> liftIO $ do
+      putStrLn "device connected: "
+      print dev
+    addDeviceConnectedHandler wave
     startScanning
-    liftIO $ do
-      putStrLn "Scanning"
-      getLine
+    liftIO $ waitForEnter "Scanning. Press enter to exit"
+    stopAllDevices
+    pure ()
 
-    requestDeviceList >>= \case
-      [] -> do
-        liftIO $ putStrLn "No devices found"
-      (d1:_) -> scoped $ \scope -> do
-        w <- liftIO . sampleIO $ waves
-        fork scope $ Stream.mapM_ (vibrateSingleMotor d1) (funTime sampleRate w)
-        liftIO $ do
-          putStrLn "press enter to exit"
-          () <$ getLine
-  
+
+wave :: Device -> ButtplugM ()
+wave dev = scoped $ \scope -> do
+  w <- liftIO . sampleIO $ waves
+  fork scope $ Stream.mapM_ (vibrateSingleMotor dev) (funTime sampleRate w)
+  liftIO $ do
+    putStrLn "press enter to exit"
+    () <$ getLine
   where waves = ((bipolarToUnipolar . tanh . (* 10)) .) <$> chebfun 1 100
         sampleRate = 10
+
+  
 
 -- | ------------ | --
 -- | Stream stuff | --
@@ -88,9 +100,7 @@ bipolarToUnipolar x = (x / 2) + 0.5
 -- https://epubs.siam.org/doi/pdf/10.1137/17M1161853
 chebfun :: forall m. MonadSample m => Double -> Double -> m (Double -> Double)
 chebfun wavelength period
-  | m <= 0 = do
-    a0 <- distribution
-    pure $ const a0
+  | m <= 0 = const <$> distribution
   | otherwise = do
     -- these are nonempty, since m > 0
     as <- NE.fromList <$> mRandoms
