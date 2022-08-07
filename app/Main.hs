@@ -45,12 +45,9 @@ main = do
 
 
 wave :: Device -> ButtplugM ()
-wave dev = scoped $ \scope -> do
+wave dev = do
   w <- liftIO . sampleIO $ waves
-  _ <- fork scope $ Stream.mapM_ (vibrateSingleMotor dev) (funTime sampleRate w)
-  liftIO $ do
-    putStrLn "press enter to exit"
-    () <$ getLine
+  Stream.mapM_ (vibrateSingleMotor dev) (funTime sampleRate w)
   where waves = ((bipolarToUnipolar . tanh . (* 10)) .) <$> chebfun 1 100
         sampleRate = 10
 
