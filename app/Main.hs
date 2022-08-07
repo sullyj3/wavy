@@ -9,27 +9,15 @@
 module Main where
 
 import Control.Concurrent ()
-import Control.Concurrent.STM.TVar
-    ( newTVarIO, readTVarIO, writeTVar )
 import Control.Monad ( replicateM )
 import Control.Monad.IO.Class ( MonadIO )
-import Control.Monad.STM ( atomically )
 import Data.Foldable ()
-import Data.Function (on)
 import qualified Data.List.NonEmpty as NE
--- import Data.RVar ( runRVar, sampleRVar, MonadRandom, RVar )
--- import Data.Random ( normal, StdRandom(StdRandom) )
 import Control.Monad.Bayes.Sampler (sampleIO)
 import Control.Monad.Bayes.Class (normal, MonadSample)
-import Data.Text (Text)
-import qualified Data.Text as T
-import qualified Data.Text.IO as T
 import qualified Streamly.Internal.Data.Unfold as Unfold
-import Streamly.Prelude (Serial, SerialT)
+import Streamly.Prelude (SerialT)
 import qualified Streamly.Prelude as Stream
-import qualified System.Console.Terminal.Size as Term
-import System.Posix.Signals ( installHandler, Handler(Catch) )
-import System.Posix.Signals.Exts ( sigWINCH )
 import Buttplug
 import Buttplug.Message (Device)
 import qualified Buttplug.WebSockets as BPWS
@@ -37,10 +25,10 @@ import Control.Monad.IO.Class (liftIO)
 import Ki.Unlifted (fork, scoped)
 
 
+waitForEnter :: String -> IO ()
 waitForEnter msg = do
   putStrLn msg
-  getLine
-  pure ()
+  () <$ getLine
 
 
 main :: IO ()
@@ -50,16 +38,16 @@ main = do
       putStrLn "device connected: "
       print dev
     addDeviceConnectedHandler wave
-    startScanning
+    _ <- startScanning
     liftIO $ waitForEnter "Scanning. Press enter to exit"
-    stopAllDevices
+    _ <- stopAllDevices
     pure ()
 
 
 wave :: Device -> ButtplugM ()
 wave dev = scoped $ \scope -> do
   w <- liftIO . sampleIO $ waves
-  fork scope $ Stream.mapM_ (vibrateSingleMotor dev) (funTime sampleRate w)
+  _ <- fork scope $ Stream.mapM_ (vibrateSingleMotor dev) (funTime sampleRate w)
   liftIO $ do
     putStrLn "press enter to exit"
     () <$ getLine
