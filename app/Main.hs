@@ -69,7 +69,7 @@ funTime ::
   SerialT m a
 funTime sampleRate f = Stream.map f 
                      . Stream.delay dt 
-                     . Stream.unfold (Unfold.enumerateFromStepNum dt) $ 0
+                     . Stream.unfold Unfold.enumerateFromStepNum $ (0, dt)
   where
     dt = 1 / sampleRate
 

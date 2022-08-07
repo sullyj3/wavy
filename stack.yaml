@@ -40,7 +40,6 @@ packages:
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
 extra-deps:
-- streamly-0.8.0@sha256:0513eff994ebac2438d5ef58041fe70e0610ecd213c588fb8be3b6b72f9d61b9,20201
 - git: git@github.com:tweag/monad-bayes.git
   commit: 45915140eb681f4be34809216305fa9b89847ee7
 - git: git@github.com:sullyj3/buttplug-hs.git

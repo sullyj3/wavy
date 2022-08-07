@@ -5,13 +5,6 @@
 
 packages:
 - completed:
-    hackage: streamly-0.8.0@sha256:0513eff994ebac2438d5ef58041fe70e0610ecd213c588fb8be3b6b72f9d61b9,20201
-    pantry-tree:
-      size: 21676
-      sha256: c82bec3985b471396a52a018d9da898ce183283843f11400f0c69a8bd5a85aca
-  original:
-    hackage: streamly-0.8.0@sha256:0513eff994ebac2438d5ef58041fe70e0610ecd213c588fb8be3b6b72f9d61b9,20201
-- completed:
     name: monad-bayes
     version: 0.2.0
     git: git@github.com:tweag/monad-bayes.git
