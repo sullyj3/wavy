@@ -19,10 +19,11 @@ import qualified Streamly.Internal.Data.Unfold as Unfold
 import Streamly.Prelude (SerialT)
 import qualified Streamly.Prelude as Stream
 import Buttplug
-import Buttplug.Message (Device)
+import Buttplug.Message (Device, deviceName)
 import qualified Buttplug.WebSockets as BPWS
 import Control.Monad.IO.Class (liftIO)
 import Ki.Unlifted (fork, scoped)
+import qualified Data.Text.IO as T
 
 
 waitForEnter :: String -> IO ()
@@ -34,9 +35,8 @@ waitForEnter msg = do
 main :: IO ()
 main = do
   BPWS.runButtplugWebSockets "wavy" (BPWS.Connector "127.0.0.1" 12345) $ do
-    addDeviceConnectedHandler $ \dev -> liftIO $ do
-      putStrLn "device connected: "
-      print dev
+    addDeviceConnectedHandler $ \dev -> do
+      liftIO $ T.putStrLn $ "device connected: " <> deviceName dev
     addDeviceConnectedHandler wave
     _ <- startScanning
     liftIO $ waitForEnter "Scanning. Press enter to exit"
