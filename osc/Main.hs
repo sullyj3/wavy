@@ -9,7 +9,7 @@ module Main where
 
 import Control.Concurrent ()
 import Control.Concurrent.STM.TVar
-    ( newTVarIO, readTVarIO, writeTVar )
+    ( newTVarIO, readTVarIO, writeTVar, TVar )
 import Control.Monad ( replicateM )
 import Control.Monad.IO.Class ( MonadIO )
 import Control.Monad.STM ( atomically )
@@ -31,6 +31,14 @@ import qualified System.Console.Terminal.Size as Term
 import System.Posix.Signals ( installHandler, Handler(Catch) )
 import System.Posix.Signals.Exts ( sigWINCH )
 
+import qualified Streamly.Internal.FileSystem.Handle as StreamIO
+import qualified Streamly.Internal.Data.Array.Foreign.Type as StreamlyArray
+import Streamly.Internal.Data.Array.Foreign.Type (Array)
+import qualified Streamly.Unicode.Stream as StreamlyUnicode
+import System.IO (stdin)
+import GHC.Exts (toList)
+import Data.Char (isSpace)
+
 getWidth :: IO Int
 getWidth = do
   Just Term.Window {Term.width = width} <- Term.size
@@ -38,17 +46,36 @@ getWidth = do
 
 main :: IO ()
 main = do
+  -- randFun <- sampleIO $ chebfun 1 100
+  -- let f = bipolarToUnipolar . tanh . (* 10) . randFun
+  --     sampleRate = 50
+  --     stream = funTime sampleRate f
+  -- oscilloscope stream
+  oscilloscope $ 
+    S.map read $
+    S.filter (not . all isSpace) $
+    S.map toList $
+    stdinLines
+
+stdinLines :: SerialT IO (Array Char)
+stdinLines = S.unfold StreamIO.read stdin
+  -- 10 is the ASCII code for newline
+  |> StreamlyUnicode.decodeUtf8
+  |> S.splitOn (== '\n') StreamlyArray.write
+
+readStdinLines :: Read a => SerialT IO a
+readStdinLines = stdinLines |> S.map (read . toList)
+
+stdinFloats :: SerialT IO Double
+stdinFloats = readStdinLines
+
+oscilloscope :: SerialT IO Double -> IO ()
+oscilloscope stream = do
   widthVar <- newTVarIO =<< getWidth
   let winCHHandler = atomically . writeTVar widthVar =<< getWidth
   installHandler sigWINCH (Catch winCHHandler) Nothing
 
-  randFun <- sampleIO $ chebfun 1 100
-  let f = bipolarToUnipolar . tanh . (* 10) . randFun
-      sampleRate = 50
-  oscilloscope widthVar sampleRate f
-
-oscilloscope widthVar sampleRate f = do
-  funTime sampleRate f
+  stream
     |> keepPrev
     .> S.map
       ( \(y, y') ->
