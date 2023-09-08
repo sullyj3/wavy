@@ -24,7 +24,9 @@ import qualified Buttplug.WebSockets as BPWS
 import Control.Monad.IO.Class (liftIO)
 import Ki.Unlifted (fork, scoped)
 import qualified Data.Text.IO as T
-
+import Control.Concurrent (threadDelay)
+import Control.Monad
+import System.Random
 
 waitForEnter :: String -> IO ()
 waitForEnter msg = do
@@ -37,11 +39,60 @@ main = do
   BPWS.runButtplugWebSockets "wavy" (BPWS.Connector "127.0.0.1" 12345) $ do
     addDeviceConnectedHandler $ \dev -> do
       liftIO $ T.putStrLn $ "device connected: " <> deviceName dev
-    addDeviceConnectedHandler wave
+    addDeviceConnectedHandler markov
+    requestDeviceList
     _ <- startScanning
     liftIO $ waitForEnter "Scanning. Press enter to exit"
     _ <- stopAllDevices
     pure ()
+
+
+pulse :: Device -> ButtplugM ()
+pulse dev = forever do
+  vibrateSingleMotor dev 0.1
+  liftIO $ threadDelay 25000
+  stopDevice dev
+  waitTime <- randomRIO (30000, 2000000)
+  liftIO $ threadDelay waitTime
+  pure ()
+
+data MarkovState = Short | Long
+
+
+sleep n = threadDelay (n * 1000)
+
+pulseSingleMotor dev speed millis = do
+  vibrateSingleMotor dev speed
+  liftIO $ sleep millis
+  stopDevice dev
+
+
+markov dev = loop Long
+  where 
+    loop s = do
+      waitTime <- randomRIO $ case s of
+        Short -> (50, 200)
+        Long  -> (500, 5000)
+      duration <- randomRIO $ case s of
+        Short -> (50, 300)
+        Long -> (50, 300)
+      speed :: Double <- randomRIO $ case s of
+        Short -> (0.1, 0.3)
+        Long -> (0.7, 1)
+      liftIO $ sleep waitTime
+      pulseSingleMotor dev speed duration
+      loop =<< liftIO (chooseNextState s)
+
+    chooseNextState :: MarkovState -> IO MarkovState
+    chooseNextState s = do
+      x :: Float <- randomRIO (0, 1)
+      pure $ if x > threshold
+        then Short
+        else Long
+      where 
+        threshold = case s of
+          Short -> 0.05
+          Long -> 0.6
 
 
 wave :: Device -> ButtplugM ()

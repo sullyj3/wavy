@@ -31,6 +31,7 @@ library
     , buttplug-hs
     , ki-unlifted
     , monad-bayes
+    , random
     , stm
     , streamly ==0.8.*
     , terminal-size
@@ -50,6 +51,7 @@ executable wavy-exe
     , buttplug-hs
     , ki-unlifted
     , monad-bayes
+    , random
     , stm
     , streamly ==0.8.*
     , terminal-size
@@ -71,6 +73,7 @@ test-suite wavy-test
     , buttplug-hs
     , ki-unlifted
     , monad-bayes
+    , random
     , stm
     , streamly ==0.8.*
     , terminal-size
