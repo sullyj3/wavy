@@ -5,41 +5,41 @@
 
 packages:
 - completed:
+    commit: 45915140eb681f4be34809216305fa9b89847ee7
+    git: git@github.com:tweag/monad-bayes.git
     name: monad-bayes
-    version: 0.2.0
-    git: git@github.com:tweag/monad-bayes.git
     pantry-tree:
-      size: 10310
       sha256: 9e8e60b8675401b806ced0b08f4fee920e41d1219602b271a028f42b07a85fd7
-    commit: 45915140eb681f4be34809216305fa9b89847ee7
+      size: 10310
+    version: 0.2.0
   original:
+    commit: 45915140eb681f4be34809216305fa9b89847ee7
     git: git@github.com:tweag/monad-bayes.git
-    commit: 45915140eb681f4be34809216305fa9b89847ee7
 - completed:
+    commit: 329da506e8d3d6dfc58573fa2d9c0da4b907c19e
+    git: git@github.com:sullyj3/buttplug-hs.git
     name: buttplug-hs
-    version: 0.1.0.0
-    git: git@github.com:sullyj3/buttplug-hs.git
     pantry-tree:
-      size: 817
       sha256: 245444a088a8e3d8f45249fe92b7fa31d6b8e27515477f5a0e748ef9b93e7ef7
-    commit: 329da506e8d3d6dfc58573fa2d9c0da4b907c19e
+      size: 817
+    version: 0.1.0.0
   original:
+    commit: 329da506e8d3d6dfc58573fa2d9c0da4b907c19e
     git: git@github.com:sullyj3/buttplug-hs.git
-    commit: 329da506e8d3d6dfc58573fa2d9c0da4b907c19e
 - completed:
+    commit: ea7476e63cdd23f49e3f810de8894c02b43c02fd
+    git: git@github.com:sullyj3/buttplug-hs-core.git
     name: buttplug-hs-core
-    version: 0.2.0.0
-    git: git@github.com:sullyj3/buttplug-hs-core.git
     pantry-tree:
-      size: 1026
       sha256: a0dd014e6e530f3a3c7373bb619d52c98bf9c2949e0c124ca27a8e5e6b7ccd54
-    commit: ea7476e63cdd23f49e3f810de8894c02b43c02fd
+      size: 1026
+    version: 0.2.0.0
   original:
-    git: git@github.com:sullyj3/buttplug-hs-core.git
     commit: ea7476e63cdd23f49e3f810de8894c02b43c02fd
+    git: git@github.com:sullyj3/buttplug-hs-core.git
 snapshots:
 - completed:
-    size: 619227
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/nightly/2022/8/1.yaml
-    sha256: 511a61513165f200cccbd791ff2394854693b6a89beba0cc8fee181514237801
-  original: nightly-2022-08-01
+    sha256: 5a59b2a405b3aba3c00188453be172b85893cab8ebc352b1ef58b0eae5d248a2
+    size: 650475
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/20/26.yaml
+  original: lts-20.26
