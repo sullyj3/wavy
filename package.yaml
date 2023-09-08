@@ -30,6 +30,7 @@ dependencies:
 - buttplug-hs
 - random
 - ki-unlifted
+- flow
 
 library:
   source-dirs: []
@@ -38,6 +39,16 @@ executables:
   wavy-exe:
     main:                Main.hs
     source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - wavy
+
+  osc:
+    main:                Main.hs
+    source-dirs:         osc
     ghc-options:
     - -threaded
     - -rtsopts
